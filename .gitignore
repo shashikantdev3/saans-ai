@@ -1,36 +1,7 @@
-# dependencies
-node_modules/
-
-# build output
-.next/
-out/
-build/
-dist/
-
-# tests
-coverage/
-playwright-report/
-test-results/
-blob-report/
-
-# env files: never commit secrets
+node_modules
+dist
 .env
-.env.*
-!.env.example
-
-# media and recordings
-video/out/
-*.mp4
-*.webm
-*.mov
-
-# misc
+*.local
 .DS_Store
-Thumbs.db
-*.log
+coverage
 *.tsbuildinfo
-next-env.d.ts
-.vercel
-
-# vitest cache
-.vitest/

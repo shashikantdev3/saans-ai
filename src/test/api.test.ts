@@ -1,3 +1,4 @@
+// @vitest-environment node
 // ============================================================
 // src/test/api.test.ts
 // Tier 5: Server HTTP API & Security Validation Tests

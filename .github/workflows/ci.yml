@@ -6,23 +6,30 @@ on:
   pull_request:
     branches: [main, master]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   quality-and-test:
-    name: Lint, Format, Frontend Tests & Build
+    name: Lint, Format, Tests & Build
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Codebase
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js Runtime
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20.x'
+          node-version: '22.x'
           cache: 'npm'
 
       - name: Install Project Dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Static Code Analysis (Oxlint)
         run: npm run lint
@@ -33,8 +40,8 @@ jobs:
       - name: Strict TypeScript Compilation
         run: npm run typecheck
 
-      - name: Execute Frontend Vitest Suite
-        run: npm run test:frontend
+      - name: Execute Vitest Suite (frontend and API)
+        run: npm run test:run
 
       - name: Production Bundle Compilation
         run: npm run build
