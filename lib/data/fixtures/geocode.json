@@ -1,0 +1,67 @@
+{
+  "results": [
+    {
+      "id": 1273294,
+      "name": "Delhi",
+      "latitude": 28.65195,
+      "longitude": 77.23149,
+      "admin1": "Delhi",
+      "country": "India",
+      "country_code": "IN"
+    },
+    {
+      "id": 1261481,
+      "name": "New Delhi",
+      "latitude": 28.63576,
+      "longitude": 77.22445,
+      "admin1": "Delhi",
+      "country": "India",
+      "country_code": "IN"
+    },
+    {
+      "id": 1277333,
+      "name": "Bengaluru",
+      "latitude": 12.97194,
+      "longitude": 77.59369,
+      "admin1": "Karnataka",
+      "country": "India",
+      "country_code": "IN"
+    },
+    {
+      "id": 1264733,
+      "name": "Lucknow",
+      "latitude": 26.83928,
+      "longitude": 80.92313,
+      "admin1": "Uttar Pradesh",
+      "country": "India",
+      "country_code": "IN"
+    },
+    {
+      "id": 7279746,
+      "name": "Noida",
+      "latitude": 28.58,
+      "longitude": 77.33,
+      "admin1": "Uttar Pradesh",
+      "country": "India",
+      "country_code": "IN"
+    },
+    {
+      "id": 1270642,
+      "name": "Gurugram",
+      "latitude": 28.4601,
+      "longitude": 77.02635,
+      "admin1": "Haryana",
+      "country": "India",
+      "country_code": "IN"
+    },
+    {
+      "id": 1260086,
+      "name": "Patna",
+      "latitude": 25.59408,
+      "longitude": 85.13563,
+      "admin1": "Bihar",
+      "country": "India",
+      "country_code": "IN"
+    }
+  ]
+}

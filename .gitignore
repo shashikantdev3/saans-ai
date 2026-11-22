@@ -1,0 +1,33 @@
+# dependencies
+node_modules/
+
+# build output
+.next/
+out/
+build/
+dist/
+
+# tests
+coverage/
+playwright-report/
+test-results/
+blob-report/
+
+# env files: never commit secrets
+.env
+.env.*
+!.env.example
+
+# media and recordings
+video/out/
+*.mp4
+*.webm
+*.mov
+
+# misc
+.DS_Store
+Thumbs.db
+*.log
+*.tsbuildinfo
+next-env.d.ts
+.vercel
