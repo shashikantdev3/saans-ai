@@ -4,12 +4,7 @@
 // Per ARCHITECTURE_PATTERNS.md §1 & SECURITY_STANDARDS.md §1
 // ============================================================
 
-import type {
-  UrbanZone,
-  PersonaProfile,
-  DailyRoutinePlan,
-  Language,
-} from '@/types';
+import type { UrbanZone, PersonaProfile, DailyRoutinePlan, Language } from '@/types';
 
 export interface RoutineRequestPayload {
   persona: PersonaProfile;

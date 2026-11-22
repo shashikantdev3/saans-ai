@@ -17,16 +17,29 @@ export const TransitComparisonTable = memo(function TransitComparisonTable({
     <div className="overflow-x-auto">
       <table className="w-full text-left text-xs text-slate-200 border-collapse">
         <caption className="sr-only">
-          Comparison of transit modes by duration, PM2.5 exposure dose, carbon emissions, and health risk
+          Comparison of transit modes by duration, PM2.5 exposure dose, carbon emissions, and health
+          risk
         </caption>
         <thead>
           <tr className="border-b border-slate-700/60 text-slate-400 uppercase text-[10px] tracking-wider">
-            <th scope="col" className="py-3 px-3">Transit Mode</th>
-            <th scope="col" className="py-3 px-3">Duration</th>
-            <th scope="col" className="py-3 px-3">PM2.5 Inhaled Dose</th>
-            <th scope="col" className="py-3 px-3">CO₂ Footprint</th>
-            <th scope="col" className="py-3 px-3">Health Risk</th>
-            <th scope="col" className="py-3 px-3">Clinical Advisory</th>
+            <th scope="col" className="py-3 px-3">
+              Transit Mode
+            </th>
+            <th scope="col" className="py-3 px-3">
+              Duration
+            </th>
+            <th scope="col" className="py-3 px-3">
+              PM2.5 Inhaled Dose
+            </th>
+            <th scope="col" className="py-3 px-3">
+              CO₂ Footprint
+            </th>
+            <th scope="col" className="py-3 px-3">
+              Health Risk
+            </th>
+            <th scope="col" className="py-3 px-3">
+              Clinical Advisory
+            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-slate-800/60">
@@ -39,7 +52,11 @@ export const TransitComparisonTable = memo(function TransitComparisonTable({
             >
               <td className="py-3.5 px-3 flex items-center gap-2">
                 {item.isRecommended && (
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" title="Recommended Option" aria-hidden="true" />
+                  <span
+                    className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"
+                    title="Recommended Option"
+                    aria-hidden="true"
+                  />
                 )}
                 <span className="text-white">{item.modeLabel}</span>
               </td>
@@ -50,8 +67,8 @@ export const TransitComparisonTable = memo(function TransitComparisonTable({
                     item.pm25ExposureDoseUg > 40
                       ? 'text-red-400'
                       : item.pm25ExposureDoseUg > 20
-                      ? 'text-amber-400'
-                      : 'text-emerald-400'
+                        ? 'text-amber-400'
+                        : 'text-emerald-400'
                   }
                 >
                   {item.pm25ExposureDoseUg} µg
@@ -64,10 +81,10 @@ export const TransitComparisonTable = memo(function TransitComparisonTable({
                     item.healthRiskRating === 'severe'
                       ? 'bg-red-950 text-red-400 border border-red-500/40'
                       : item.healthRiskRating === 'moderate'
-                      ? 'bg-amber-950 text-amber-400 border border-amber-500/40'
-                      : item.healthRiskRating === 'low'
-                      ? 'bg-sky-950 text-sky-400 border border-sky-500/40'
-                      : 'bg-emerald-950 text-emerald-400 border border-emerald-500/40'
+                        ? 'bg-amber-950 text-amber-400 border border-amber-500/40'
+                        : item.healthRiskRating === 'low'
+                          ? 'bg-sky-950 text-sky-400 border border-sky-500/40'
+                          : 'bg-emerald-950 text-emerald-400 border border-emerald-500/40'
                   }`}
                 >
                   {item.healthRiskRating}

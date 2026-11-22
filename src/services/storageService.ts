@@ -11,12 +11,7 @@ import type {
   IAQRoomConfig,
   CommunityPledge,
 } from '@/types';
-import {
-  DEFAULT_ZONES,
-  DEFAULT_PERSONAS,
-  DEFAULT_ROOMS,
-  DEFAULT_PLEDGES,
-} from '@/lib/constants';
+import { DEFAULT_ZONES, DEFAULT_PERSONAS, DEFAULT_ROOMS, DEFAULT_PLEDGES } from '@/lib/constants';
 
 function safeParse<T>(raw: string | null, fallback: T): T {
   if (!raw) return fallback;
@@ -55,7 +50,10 @@ export const storageService = {
 
   getSelectedZoneId(): string {
     if (typeof window === 'undefined') return DEFAULT_ZONES[0].zoneId;
-    return safeParse<string>(localStorage.getItem(STORAGE_KEYS.SELECTED_ZONE), DEFAULT_ZONES[0].zoneId);
+    return safeParse<string>(
+      localStorage.getItem(STORAGE_KEYS.SELECTED_ZONE),
+      DEFAULT_ZONES[0].zoneId,
+    );
   },
 
   saveSelectedZoneId(zoneId: string): void {
@@ -69,7 +67,10 @@ export const storageService = {
 
   getActivePersona(): PersonaProfile {
     if (typeof window === 'undefined') return DEFAULT_PERSONAS[0];
-    return safeParse<PersonaProfile>(localStorage.getItem(STORAGE_KEYS.PERSONA), DEFAULT_PERSONAS[0]);
+    return safeParse<PersonaProfile>(
+      localStorage.getItem(STORAGE_KEYS.PERSONA),
+      DEFAULT_PERSONAS[0],
+    );
   },
 
   saveActivePersona(persona: PersonaProfile): void {
@@ -111,7 +112,10 @@ export const storageService = {
 
   getPledges(): CommunityPledge[] {
     if (typeof window === 'undefined') return DEFAULT_PLEDGES;
-    return safeParse<CommunityPledge[]>(localStorage.getItem(STORAGE_KEYS.PLEDGES), DEFAULT_PLEDGES);
+    return safeParse<CommunityPledge[]>(
+      localStorage.getItem(STORAGE_KEYS.PLEDGES),
+      DEFAULT_PLEDGES,
+    );
   },
 
   savePledges(pledges: CommunityPledge[]): void {

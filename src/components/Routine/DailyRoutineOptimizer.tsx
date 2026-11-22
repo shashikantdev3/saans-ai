@@ -37,14 +37,19 @@ export const DailyRoutineOptimizer = memo(function DailyRoutineOptimizer() {
       setRoutinePlan(plan);
     } catch (err: unknown) {
       console.error('Failed to generate routine:', err);
-      setErrorMessage('Unable to generate AI schedule right now. Showing localized heuristic guidance.');
+      setErrorMessage(
+        'Unable to generate AI schedule right now. Showing localized heuristic guidance.',
+      );
     } finally {
       setIsLoading(false);
     }
   }, [activePersona, selectedZone, language, setRoutinePlan]);
 
   return (
-    <section aria-label="GenAI Daily Routine and Exposure Optimizer" className="flex flex-col gap-6 fade-in">
+    <section
+      aria-label="GenAI Daily Routine and Exposure Optimizer"
+      className="flex flex-col gap-6 fade-in"
+    >
       {/* Persona Selection Header */}
       <div className="bg-slate-900/70 border border-slate-700/50 rounded-3xl p-6 backdrop-blur-md flex flex-col gap-5">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -53,7 +58,8 @@ export const DailyRoutineOptimizer = memo(function DailyRoutineOptimizer() {
               <span aria-hidden="true">🤖</span> GenAI Daily Routine & Smog Exposure Optimizer
             </h2>
             <p className="text-xs text-slate-400 mt-1">
-              Select your family or lifestyle vulnerability profile to generate hour-by-hour exposure mitigation routines.
+              Select your family or lifestyle vulnerability profile to generate hour-by-hour
+              exposure mitigation routines.
             </p>
           </div>
 
@@ -65,7 +71,10 @@ export const DailyRoutineOptimizer = memo(function DailyRoutineOptimizer() {
           >
             {isLoading ? (
               <>
-                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" aria-hidden="true" />
+                <span
+                  className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+                  aria-hidden="true"
+                />
                 <span>Optimizing with Gemini AI…</span>
               </>
             ) : (
@@ -79,7 +88,9 @@ export const DailyRoutineOptimizer = memo(function DailyRoutineOptimizer() {
 
         {/* Persona Selector Chips */}
         <fieldset className="flex flex-col gap-2">
-          <legend className="text-xs font-semibold text-slate-300">Target Family & Commuter Persona:</legend>
+          <legend className="text-xs font-semibold text-slate-300">
+            Target Family & Commuter Persona:
+          </legend>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {personas.map((p: PersonaProfile) => {
               const isSelected = p.id === activePersona.id;
@@ -96,7 +107,9 @@ export const DailyRoutineOptimizer = memo(function DailyRoutineOptimizer() {
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className={`font-bold text-sm ${isSelected ? 'text-white' : 'text-slate-300'}`}>
+                    <span
+                      className={`font-bold text-sm ${isSelected ? 'text-white' : 'text-slate-300'}`}
+                    >
                       {p.name}
                     </span>
                     <span
@@ -119,7 +132,9 @@ export const DailyRoutineOptimizer = memo(function DailyRoutineOptimizer() {
         </fieldset>
 
         <div aria-live="polite" aria-busy={isLoading} className="sr-only">
-          {isLoading ? 'Generating personalized air quality daily schedule with Gemini AI…' : 'Schedule ready.'}
+          {isLoading
+            ? 'Generating personalized air quality daily schedule with Gemini AI…'
+            : 'Schedule ready.'}
         </div>
 
         {errorMessage && (
@@ -141,7 +156,8 @@ export const DailyRoutineOptimizer = memo(function DailyRoutineOptimizer() {
                   Optimal Outdoor Activity Window
                 </span>
                 <div className="text-2xl font-black text-white mt-1">
-                  {routinePlan.optimalOutdoorWindow.startHour}:00 – {routinePlan.optimalOutdoorWindow.endHour}:00
+                  {routinePlan.optimalOutdoorWindow.startHour}:00 –{' '}
+                  {routinePlan.optimalOutdoorWindow.endHour}:00
                 </div>
               </div>
               <p className="text-xs text-emerald-200 mt-2 leading-relaxed">
@@ -178,10 +194,7 @@ export const DailyRoutineOptimizer = memo(function DailyRoutineOptimizer() {
             </div>
           </div>
 
-          <RoutineTimeline
-            routinePlan={routinePlan}
-            zoneName={selectedZone.zoneName}
-          />
+          <RoutineTimeline routinePlan={routinePlan} zoneName={selectedZone.zoneName} />
 
           {/* Actionable General Guidance */}
           <div className="bg-slate-900/60 border border-slate-700/50 rounded-3xl p-6">
@@ -190,8 +203,13 @@ export const DailyRoutineOptimizer = memo(function DailyRoutineOptimizer() {
             </h3>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-300">
               {routinePlan.generalAdvice.map((advice, i) => (
-                <li key={i} className="flex items-start gap-2 bg-slate-800/40 p-3 rounded-xl border border-slate-700/30">
-                  <span className="text-emerald-400 font-bold" aria-hidden="true">✔</span>
+                <li
+                  key={i}
+                  className="flex items-start gap-2 bg-slate-800/40 p-3 rounded-xl border border-slate-700/30"
+                >
+                  <span className="text-emerald-400 font-bold" aria-hidden="true">
+                    ✔
+                  </span>
                   <span>{advice}</span>
                 </li>
               ))}

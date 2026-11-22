@@ -6,7 +6,14 @@
 export interface PersonaProfile {
   id: string;
   name: string;
-  subCategory: 'infant' | 'elderly' | 'asthmatic' | 'school-run' | 'cyclist' | 'transit-rider' | 'neighborhood-lead';
+  subCategory:
+    | 'infant'
+    | 'elderly'
+    | 'asthmatic'
+    | 'school-run'
+    | 'cyclist'
+    | 'transit-rider'
+    | 'neighborhood-lead';
   sensitivityLevel: 'high' | 'moderate' | 'low';
   preferredStartHour: number;
   preferredEndHour: number;

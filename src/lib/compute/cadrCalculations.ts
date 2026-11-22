@@ -44,7 +44,7 @@ export function calculateRequiredCADR(volumeM3: number, desiredACH = 4): number 
 export function estimatePurificationTime(
   volumeM3: number,
   cadrM3H: number,
-  targetEfficiency = 0.8
+  targetEfficiency = 0.8,
 ): number {
   assertFiniteNumber(volumeM3, 'volumeM3');
   assertFiniteNumber(cadrM3H, 'cadrM3H');
@@ -53,7 +53,9 @@ export function estimatePurificationTime(
   if (volumeM3 <= 0) throw new RangeError(`Volume must be > 0. Received: ${volumeM3}`);
   if (cadrM3H <= 0) throw new RangeError(`CADR must be > 0. Received: ${cadrM3H}`);
   if (targetEfficiency <= 0 || targetEfficiency >= 1) {
-    throw new RangeError(`Target efficiency must be between 0 and 1. Received: ${targetEfficiency}`);
+    throw new RangeError(
+      `Target efficiency must be between 0 and 1. Received: ${targetEfficiency}`,
+    );
   }
 
   const hours = (-Math.log(1 - targetEfficiency) * volumeM3) / cadrM3H;

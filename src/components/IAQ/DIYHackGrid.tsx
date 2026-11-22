@@ -14,7 +14,8 @@ export const DIYHackGrid = memo(function DIYHackGrid() {
           <span aria-hidden="true">💡</span> Low-Cost & DIY Indoor Air Purification Hacks
         </h3>
         <p className="text-xs text-slate-400 mt-0.5">
-          Peer-reviewed open-source solutions proven to deliver high CADR at minimal household expense.
+          Peer-reviewed open-source solutions proven to deliver high CADR at minimal household
+          expense.
         </p>
       </div>
 
@@ -37,9 +38,7 @@ export const DIYHackGrid = memo(function DIYHackGrid() {
               <div className="text-xs text-slate-300 mt-2">
                 <strong>Materials:</strong> {hack.materials}
               </div>
-              <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                {hack.instructions}
-              </p>
+              <p className="text-xs text-slate-400 mt-2 leading-relaxed">{hack.instructions}</p>
             </div>
 
             <div className="pt-3 border-t border-slate-800 text-[11px] text-sky-400 font-medium">

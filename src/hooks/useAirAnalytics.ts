@@ -6,11 +6,7 @@
 
 import { useMemo, useCallback } from 'react';
 import { useAppContext } from '@/context/AppContext';
-import {
-  calculateAQICategory,
-  getAQIColor,
-  evaluateInversionRisk,
-} from '@/lib/aqiCompute';
+import { calculateAQICategory, getAQIColor, evaluateInversionRisk } from '@/lib/aqiCompute';
 import { PollutantType, type PollutantReading } from '@/types';
 
 export function useAirAnalytics() {

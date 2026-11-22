@@ -12,14 +12,7 @@ import { TRANSLATIONS } from '@/lib/constants';
 import { PledgeCard } from './PledgeCard';
 
 export const CommunityHub = memo(function CommunityHub() {
-  const {
-    pledges,
-    togglePledge,
-    alerts,
-    dismissAlert,
-    selectedZone,
-    language,
-  } = useAppContext();
+  const { pledges, togglePledge, alerts, dismissAlert, selectedZone, language } = useAppContext();
 
   const [aiAdvisory, setAiAdvisory] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
@@ -41,7 +34,7 @@ export const CommunityHub = memo(function CommunityHub() {
       setAiAdvisory(advisory);
     } catch {
       setAiAdvisory(
-        `URGENT NOTICE for ${selectedZone.zoneName}: AQI is ${selectedZone.aqi}. Please activate indoor filtration, seal doors, and assist vulnerable neighbors.`
+        `URGENT NOTICE for ${selectedZone.zoneName}: AQI is ${selectedZone.aqi}. Please activate indoor filtration, seal doors, and assist vulnerable neighbors.`,
       );
     } finally {
       setIsGenerating(false);
@@ -49,7 +42,10 @@ export const CommunityHub = memo(function CommunityHub() {
   }, [selectedZone, language]);
 
   return (
-    <section aria-label="Community Action and Collective Impact Hub" className="flex flex-col gap-6 fade-in">
+    <section
+      aria-label="Community Action and Collective Impact Hub"
+      className="flex flex-col gap-6 fade-in"
+    >
       {/* Top Collective Impact KPI Banner */}
       <div className="bg-gradient-to-r from-emerald-950/60 to-slate-900/80 border border-emerald-500/40 rounded-3xl p-6 backdrop-blur-md flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
@@ -60,7 +56,8 @@ export const CommunityHub = memo(function CommunityHub() {
             Community Smog Abatement Dashboard
           </h2>
           <p className="text-xs text-slate-300 mt-1 max-w-xl leading-relaxed">
-            When neighbors coordinate emission curbs—eliminating backyard burning, coordinating carpools, and wet-sweeping streets—local PM2.5 levels decrease by up to 28%.
+            When neighbors coordinate emission curbs—eliminating backyard burning, coordinating
+            carpools, and wet-sweeping streets—local PM2.5 levels decrease by up to 28%.
           </p>
         </div>
 

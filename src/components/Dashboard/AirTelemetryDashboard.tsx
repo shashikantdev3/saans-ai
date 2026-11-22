@@ -25,7 +25,10 @@ export const AirTelemetryDashboard = memo(function AirTelemetryDashboard() {
   } = useAirAnalytics();
 
   return (
-    <section aria-label="Hyperlocal AQI Telemetry Dashboard" className="flex flex-col gap-6 fade-in">
+    <section
+      aria-label="Hyperlocal AQI Telemetry Dashboard"
+      className="flex flex-col gap-6 fade-in"
+    >
       {/* Top Hero KPI Banner */}
       <div className="bg-slate-900/70 border border-slate-700/50 rounded-3xl p-6 relative overflow-hidden backdrop-blur-md">
         <div
@@ -44,7 +47,10 @@ export const AirTelemetryDashboard = memo(function AirTelemetryDashboard() {
             </div>
 
             <div className="flex items-baseline gap-4 mt-2">
-              <h1 className="text-5xl font-black text-white tracking-tight" style={{ color: aqiColor }}>
+              <h1
+                className="text-5xl font-black text-white tracking-tight"
+                style={{ color: aqiColor }}
+              >
                 {currentZone.aqi}
               </h1>
               <div>
@@ -52,7 +58,8 @@ export const AirTelemetryDashboard = memo(function AirTelemetryDashboard() {
                   {aqiCategory}
                 </span>
                 <span className="text-xs text-slate-400">
-                  Dominant Pollutant: <strong className="text-slate-200">{currentZone.dominantPollutant}</strong>
+                  Dominant Pollutant:{' '}
+                  <strong className="text-slate-200">{currentZone.dominantPollutant}</strong>
                 </span>
               </div>
             </div>
@@ -63,10 +70,15 @@ export const AirTelemetryDashboard = memo(function AirTelemetryDashboard() {
             <div className="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-4 min-w-[200px]">
               <div className="flex items-center justify-between">
                 <span className="text-xs text-slate-400 font-medium">Boundary Layer</span>
-                <span className="text-sm" aria-hidden="true">🌡️</span>
+                <span className="text-sm" aria-hidden="true">
+                  🌡️
+                </span>
               </div>
               <div className="text-base font-bold text-white mt-1">
-                {currentZone.temperatureC}°C <span className="text-xs text-slate-400 font-normal">/ {currentZone.humidityPercent}% RH</span>
+                {currentZone.temperatureC}°C{' '}
+                <span className="text-xs text-slate-400 font-normal">
+                  / {currentZone.humidityPercent}% RH
+                </span>
               </div>
               <div className="text-xs text-slate-400 mt-1">
                 Wind: <strong className="text-slate-200">{currentZone.windSpeedKmh} km/h</strong>
@@ -150,7 +162,8 @@ export const AirTelemetryDashboard = memo(function AirTelemetryDashboard() {
                     <span className="text-[10px] text-slate-400">({pollutant.unit})</span>
                   </div>
                   <div className="text-xs font-semibold text-slate-200 mt-0.5">
-                    {pollutant.current} <span className="text-[10px] text-slate-400">/ max {pollutant.threshold}</span>
+                    {pollutant.current}{' '}
+                    <span className="text-[10px] text-slate-400">/ max {pollutant.threshold}</span>
                   </div>
                 </div>
 
@@ -170,8 +183,8 @@ export const AirTelemetryDashboard = memo(function AirTelemetryDashboard() {
                       pollutant.status === 'Hazardous' || pollutant.status === 'Critical'
                         ? 'bg-red-950 text-red-400 border border-red-500/40'
                         : pollutant.status === 'Unhealthy' || pollutant.status === 'Moderate'
-                        ? 'bg-amber-950 text-amber-400 border border-amber-500/40'
-                        : 'bg-emerald-950 text-emerald-400 border border-emerald-500/40'
+                          ? 'bg-amber-950 text-amber-400 border border-amber-500/40'
+                          : 'bg-emerald-950 text-emerald-400 border border-emerald-500/40'
                     }`}
                   >
                     {pollutant.status}
@@ -182,7 +195,8 @@ export const AirTelemetryDashboard = memo(function AirTelemetryDashboard() {
           </div>
 
           <div className="text-[11px] text-slate-400 bg-slate-800/30 rounded-xl p-3 border border-slate-700/30">
-            💡 <strong>Winter Smog Insight:</strong> Secondary PM2.5 formation surges when ambient humidity exceeds 75% in the presence of vehicle-emitted NO2 and sulfur precursors.
+            💡 <strong>Winter Smog Insight:</strong> Secondary PM2.5 formation surges when ambient
+            humidity exceeds 75% in the presence of vehicle-emitted NO2 and sulfur precursors.
           </div>
         </div>
       </div>

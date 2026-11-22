@@ -13,7 +13,8 @@ export const DEFAULT_PERSONAS: PersonaProfile[] = [
     sensitivityLevel: 'high',
     preferredStartHour: 7,
     preferredEndHour: 19,
-    description: 'Pediatric asthma profile. Requires strict morning smog avoidance, HEPA filtration, and zero outdoor PE during temperature inversions.',
+    description:
+      'Pediatric asthma profile. Requires strict morning smog avoidance, HEPA filtration, and zero outdoor PE during temperature inversions.',
   },
   {
     id: 'persona-infant',
@@ -22,7 +23,8 @@ export const DEFAULT_PERSONAS: PersonaProfile[] = [
     sensitivityLevel: 'high',
     preferredStartHour: 8,
     preferredEndHour: 18,
-    description: 'Underdeveloped pulmonary defense. High risk from ultrafine PM2.5 and NO2. Focus on sealed indoor nurseries and CADR tuning.',
+    description:
+      'Underdeveloped pulmonary defense. High risk from ultrafine PM2.5 and NO2. Focus on sealed indoor nurseries and CADR tuning.',
   },
   {
     id: 'persona-elderly',
@@ -31,7 +33,8 @@ export const DEFAULT_PERSONAS: PersonaProfile[] = [
     sensitivityLevel: 'high',
     preferredStartHour: 9,
     preferredEndHour: 17,
-    description: 'Hypertension and cardiac sensitivity. Extreme risk during sudden winter smog spikes. Priority on midday sun windows with low inversion.',
+    description:
+      'Hypertension and cardiac sensitivity. Extreme risk during sudden winter smog spikes. Priority on midday sun windows with low inversion.',
   },
   {
     id: 'persona-commuter',
@@ -40,7 +43,8 @@ export const DEFAULT_PERSONAS: PersonaProfile[] = [
     sensitivityLevel: 'moderate',
     preferredStartHour: 8,
     preferredEndHour: 20,
-    description: 'Professional navigating peak-hour congestion. Balancing metro transit, cycling corridors, and cabin-filtered vehicle options.',
+    description:
+      'Professional navigating peak-hour congestion. Balancing metro transit, cycling corridors, and cabin-filtered vehicle options.',
   },
   {
     id: 'persona-school',
@@ -49,7 +53,8 @@ export const DEFAULT_PERSONAS: PersonaProfile[] = [
     sensitivityLevel: 'high',
     preferredStartHour: 7,
     preferredEndHour: 16,
-    description: 'Managing morning school drop-off and afternoon pick-up across multiple urban zones during winter temperature inversions.',
+    description:
+      'Managing morning school drop-off and afternoon pick-up across multiple urban zones during winter temperature inversions.',
   },
   {
     id: 'persona-lead',
@@ -58,6 +63,7 @@ export const DEFAULT_PERSONAS: PersonaProfile[] = [
     sensitivityLevel: 'low',
     preferredStartHour: 6,
     preferredEndHour: 22,
-    description: 'Managing neighborhood air monitoring, vulnerable resident welfare checks, and anti-waste burning taskforces.',
+    description:
+      'Managing neighborhood air monitoring, vulnerable resident welfare checks, and anti-waste burning taskforces.',
   },
 ];

@@ -62,13 +62,7 @@ export const Sparkline = memo(function Sparkline({
           strokeLinejoin="round"
         />
         {points.map((p, i) => (
-          <circle
-            key={i}
-            cx={p.x}
-            cy={p.y}
-            r={i === points.length - 1 ? 3 : 2}
-            fill={color}
-          />
+          <circle key={i} cx={p.x} cy={p.y} r={i === points.length - 1 ? 3 : 2} fill={color} />
         ))}
       </svg>
     </div>

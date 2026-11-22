@@ -32,7 +32,7 @@ describe('AirTelemetryDashboard Rendering', () => {
     render(
       <AppContextProvider>
         <AirTelemetryDashboard />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     expect(screen.getByLabelText(/Hyperlocal AQI Telemetry Dashboard/i)).toBeInTheDocument();
@@ -44,7 +44,7 @@ describe('AirTelemetryDashboard Rendering', () => {
     render(
       <AppContextProvider>
         <AirTelemetryDashboard />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     const srList = screen.getByLabelText(/Urban air quality heatmap description/i);
@@ -68,7 +68,7 @@ describe('DailyRoutineOptimizer Rendering', () => {
     render(
       <AppContextProvider>
         <DailyRoutineOptimizer />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     expect(screen.getByText(/GenAI Daily Routine & Smog Exposure Optimizer/i)).toBeInTheDocument();
@@ -83,7 +83,7 @@ describe('TransitPlanner Rendering', () => {
     render(
       <AppContextProvider>
         <TransitPlanner />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     expect(screen.getByText(/Low-Exposure Commute & Transit Path Optimizer/i)).toBeInTheDocument();
@@ -99,7 +99,7 @@ describe('IAQCenter Rendering', () => {
     render(
       <AppContextProvider>
         <IAQCenter />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     expect(screen.getByText(/Room CADR & Indoor Air Quality/i)).toBeInTheDocument();
@@ -114,7 +114,7 @@ describe('CommunityHub Rendering', () => {
     render(
       <AppContextProvider>
         <CommunityHub />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     expect(screen.getByText(/Community Smog Abatement Dashboard/i)).toBeInTheDocument();

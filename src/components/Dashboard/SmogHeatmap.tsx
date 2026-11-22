@@ -15,8 +15,8 @@ interface SmogHeatmapProps {
 
 const NODE_COORDINATES = [
   { cx: 300, cy: 160 }, // Central
-  { cx: 160, cy: 75 },  // North Industrial
-  { cx: 450, cy: 90 },  // Residential
+  { cx: 160, cy: 75 }, // North Industrial
+  { cx: 450, cy: 90 }, // Residential
   { cx: 460, cy: 235 }, // Riverside
   { cx: 170, cy: 230 }, // Transit Hub
 ];
@@ -41,9 +41,8 @@ export const SmogHeatmap = memo(function SmogHeatmap({
       <ul className="sr-only" aria-label="Urban air quality heatmap description">
         {zones.map((zone) => (
           <li key={zone.zoneId}>
-            Sector {zone.zoneName}: AQI is {zone.aqi}, Category {zone.category},
-            PM2.5 is {zone.pm25} micrograms per cubic meter,
-            dominant pollutant is {zone.dominantPollutant},
+            Sector {zone.zoneName}: AQI is {zone.aqi}, Category {zone.category}, PM2.5 is{' '}
+            {zone.pm25} micrograms per cubic meter, dominant pollutant is {zone.dominantPollutant},
             inversion risk is {zone.inversionRisk ? 'Active hazard' : 'Normal atmospheric mixing'}.
           </li>
         ))}
@@ -66,10 +65,28 @@ export const SmogHeatmap = memo(function SmogHeatmap({
 
           <rect x="0" y="0" width="600" height="320" fill="url(#smogGrad)" rx="12" />
           {[60, 120, 180, 240].map((y) => (
-            <line key={`grid-h-${y}`} x1="20" y1={y} x2="580" y2={y} stroke="#334155" strokeWidth="0.5" strokeDasharray="3 3" />
+            <line
+              key={`grid-h-${y}`}
+              x1="20"
+              y1={y}
+              x2="580"
+              y2={y}
+              stroke="#334155"
+              strokeWidth="0.5"
+              strokeDasharray="3 3"
+            />
           ))}
           {[120, 240, 360, 480].map((x) => (
-            <line key={`grid-v-${x}`} x1={x} y1="20" x2={x} y2="300" stroke="#334155" strokeWidth="0.5" strokeDasharray="3 3" />
+            <line
+              key={`grid-v-${x}`}
+              x1={x}
+              y1="20"
+              x2={x}
+              y2="300"
+              stroke="#334155"
+              strokeWidth="0.5"
+              strokeDasharray="3 3"
+            />
           ))}
 
           {/* Wind Vectors */}
@@ -86,18 +103,60 @@ export const SmogHeatmap = memo(function SmogHeatmap({
             const isSelected = zone.zoneId === selectedZoneId;
 
             return (
-              <g key={zone.zoneId} className="cursor-pointer" onClick={() => onSelectZone(zone.zoneId)}>
+              <g
+                key={zone.zoneId}
+                className="cursor-pointer"
+                onClick={() => onSelectZone(zone.zoneId)}
+              >
                 {zone.aqi > 200 && (
-                  <circle cx={pos.cx} cy={pos.cy} r="34" fill="none" stroke={color} strokeWidth="1.5" opacity="0.3" className="animate-ping" />
+                  <circle
+                    cx={pos.cx}
+                    cy={pos.cy}
+                    r="34"
+                    fill="none"
+                    stroke={color}
+                    strokeWidth="1.5"
+                    opacity="0.3"
+                    className="animate-ping"
+                  />
                 )}
                 {isSelected && (
-                  <circle cx={pos.cx} cy={pos.cy} r="30" fill="none" stroke="#10b981" strokeWidth="2.5" strokeDasharray="4 2" />
+                  <circle
+                    cx={pos.cx}
+                    cy={pos.cy}
+                    r="30"
+                    fill="none"
+                    stroke="#10b981"
+                    strokeWidth="2.5"
+                    strokeDasharray="4 2"
+                  />
                 )}
-                <circle cx={pos.cx} cy={pos.cy} r="22" fill="#0f172a" stroke={color} strokeWidth="3" />
-                <text x={pos.cx} y={pos.cy + 4} textAnchor="middle" fill="#ffffff" fontSize="12" fontWeight="bold">
+                <circle
+                  cx={pos.cx}
+                  cy={pos.cy}
+                  r="22"
+                  fill="#0f172a"
+                  stroke={color}
+                  strokeWidth="3"
+                />
+                <text
+                  x={pos.cx}
+                  y={pos.cy + 4}
+                  textAnchor="middle"
+                  fill="#ffffff"
+                  fontSize="12"
+                  fontWeight="bold"
+                >
                   {zone.aqi}
                 </text>
-                <text x={pos.cx} y={pos.cy + 36} textAnchor="middle" fill="#e2e8f0" fontSize="11" fontWeight="600">
+                <text
+                  x={pos.cx}
+                  y={pos.cy + 36}
+                  textAnchor="middle"
+                  fill="#e2e8f0"
+                  fontSize="11"
+                  fontWeight="600"
+                >
                   {zone.zoneName.split(' ')[0]}
                 </text>
               </g>

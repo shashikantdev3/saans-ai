@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --stadium-bg: #eef7f8;
@@ -12,7 +12,12 @@
 body {
   background-color: var(--stadium-bg);
   color: #1f3340;
-  font-family: 'Mukta', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
+  font-family:
+    'Mukta',
+    'Noto Sans Devanagari',
+    system-ui,
+    -apple-system,
+    sans-serif;
   overflow-x: hidden;
 }
 
@@ -51,19 +56,41 @@ body {
 }
 
 /* Saans uses the calm winter-sky palette shown in its product walkthrough. */
-.saans-shell [class*='bg-slate-900'] { background-color: rgba(255, 255, 255, 0.92); }
-.saans-shell [class*='bg-slate-800'] { background-color: rgba(225, 239, 241, 0.9); }
-.saans-shell [class*='bg-slate-700'] { background-color: rgba(203, 224, 227, 0.85); }
+.saans-shell [class*='bg-slate-900'] {
+  background-color: rgba(255, 255, 255, 0.92);
+}
+.saans-shell [class*='bg-slate-800'] {
+  background-color: rgba(225, 239, 241, 0.9);
+}
+.saans-shell [class*='bg-slate-700'] {
+  background-color: rgba(203, 224, 227, 0.85);
+}
 .saans-shell [class*='border-slate-8'],
-.saans-shell [class*='border-slate-7'] { border-color: #c9dce0; }
-.saans-shell .text-white { color: #18313d; }
+.saans-shell [class*='border-slate-7'] {
+  border-color: #c9dce0;
+}
+.saans-shell .text-white {
+  color: #18313d;
+}
 .saans-shell .text-slate-100,
-.saans-shell .text-slate-200 { color: #294653; }
+.saans-shell .text-slate-200 {
+  color: #294653;
+}
 .saans-shell .text-slate-300,
-.saans-shell .text-slate-400 { color: #526c76; }
-.saans-shell .text-slate-500 { color: #667f89; }
+.saans-shell .text-slate-400 {
+  color: #526c76;
+}
+.saans-shell .text-slate-500 {
+  color: #667f89;
+}
 .saans-shell .text-emerald-400,
 .saans-shell .text-emerald-500,
-.saans-shell .text-sky-400 { color: #176b7e; }
-.saans-shell [class*='bg-emerald-9'] { background-color: #dff0ed; }
-.saans-shell [class*='border-emerald-5'] { border-color: #78b6ae; }
+.saans-shell .text-sky-400 {
+  color: #176b7e;
+}
+.saans-shell [class*='bg-emerald-9'] {
+  background-color: #dff0ed;
+}
+.saans-shell [class*='border-emerald-5'] {
+  border-color: #78b6ae;
+}

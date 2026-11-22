@@ -38,21 +38,19 @@ export const RoutineTimeline = memo(function RoutineTimeline({
                 isIndoorOnly
                   ? 'bg-red-950/20 border-red-500/30'
                   : isOutdoor
-                  ? 'bg-emerald-950/20 border-emerald-500/40'
-                  : 'bg-slate-800/40 border-slate-700/50'
+                    ? 'bg-emerald-950/20 border-emerald-500/40'
+                    : 'bg-slate-800/40 border-slate-700/50'
               }`}
             >
               <div className="flex items-center gap-4 min-w-[130px]">
-                <span className="text-base font-black text-white font-mono">
-                  {slot.timeLabel}
-                </span>
+                <span className="text-base font-black text-white font-mono">{slot.timeLabel}</span>
                 <span
                   className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${
                     isIndoorOnly
                       ? 'bg-red-900 text-red-200 border border-red-500/40'
                       : isOutdoor
-                      ? 'bg-emerald-900 text-emerald-200 border border-emerald-500/40'
-                      : 'bg-amber-900 text-amber-200 border border-amber-500/40'
+                        ? 'bg-emerald-900 text-emerald-200 border border-emerald-500/40'
+                        : 'bg-amber-900 text-amber-200 border border-amber-500/40'
                   }`}
                 >
                   {slot.recommendation.replace('-', ' ')}

@@ -20,7 +20,7 @@ const AppShell = memo(function AppShell() {
 
   return (
     <div
-        className={`saans-shell min-h-screen bg-[#eef7f8] text-slate-800 flex flex-col justify-between ${
+      className={`saans-shell min-h-screen bg-[#eef7f8] text-slate-800 flex flex-col justify-between ${
         accessibilityMode === 'high-contrast' ? 'contrast-125' : ''
       }`}
     >

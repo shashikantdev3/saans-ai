@@ -64,7 +64,8 @@ export const DIY_HACKS = [
     costRating: '$ (Under $40)',
     cadrDelivery: 'Up to 350 m³/h',
     materials: '1x 20" Box Fan + 4x MERV-13 Furnace Filters + Duct Tape',
-    instructions: 'Tape four MERV-13 filters in a cube with a cardboard base, sealing the fan on top blowing upward. Delivers commercial-grade CADR for a fraction of retail price.',
+    instructions:
+      'Tape four MERV-13 filters in a cube with a cardboard base, sealing the fan on top blowing upward. Delivers commercial-grade CADR for a fraction of retail price.',
     efficiencyBonus: '90% reduction of PM2.5 in 25 minutes',
   },
   {
@@ -74,7 +75,8 @@ export const DIY_HACKS = [
     costRating: '$0 (Free)',
     cadrDelivery: 'Natural displacement',
     materials: 'Outdoor AQI sensor or Saans real-time monitor',
-    instructions: 'Never open windows between 6:00 AM – 10:30 AM (peak winter inversion trap). Only crack opposing windows between 1:30 PM – 3:30 PM when solar radiation breaks the boundary layer.',
+    instructions:
+      'Never open windows between 6:00 AM – 10:30 AM (peak winter inversion trap). Only crack opposing windows between 1:30 PM – 3:30 PM when solar radiation breaks the boundary layer.',
     efficiencyBonus: 'Prevents 85% outdoor particulate intrusion',
   },
   {
@@ -84,7 +86,8 @@ export const DIY_HACKS = [
     costRating: '$ (Under $25)',
     cadrDelivery: 'Low VOC & particulate capture',
     materials: 'Snake Plant (Sansevieria), Areca Palm, Peace Lily',
-    instructions: 'Place Snake Plants in bedrooms (they release oxygen at night through CAM photosynthesis) and Areca Palms in living spaces for natural humidity regulation (40-50% ideal range).',
+    instructions:
+      'Place Snake Plants in bedrooms (they release oxygen at night through CAM photosynthesis) and Areca Palms in living spaces for natural humidity regulation (40-50% ideal range).',
     efficiencyBonus: 'Maintains optimal airway humidity & reduces fine dust settling',
   },
   {
@@ -94,7 +97,8 @@ export const DIY_HACKS = [
     costRating: '$0 (Free)',
     cadrDelivery: 'Draft barrier',
     materials: 'Rolled damp towels, weatherstripping foam tape',
-    instructions: 'Place damp rolled towels at the base of exterior doors and leaky window sills during severe AQI (>250) spikes to capture intruding soot particles.',
+    instructions:
+      'Place damp rolled towels at the base of exterior doors and leaky window sills during severe AQI (>250) spikes to capture intruding soot particles.',
     efficiencyBonus: 'Reduces draft infiltration rate by 35%',
   },
 ];

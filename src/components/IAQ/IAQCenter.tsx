@@ -48,7 +48,7 @@ export const IAQCenter = memo(function IAQCenter() {
     (area: number) => {
       updateRoom(activeRoom.roomId, { areaSqMeters: Math.max(4, area) });
     },
-    [activeRoom.roomId, updateRoom]
+    [activeRoom.roomId, updateRoom],
   );
 
   const handleCadrChange = useCallback(
@@ -58,11 +58,14 @@ export const IAQCenter = memo(function IAQCenter() {
         hasAirPurifier: cadr > 0,
       });
     },
-    [activeRoom.roomId, updateRoom]
+    [activeRoom.roomId, updateRoom],
   );
 
   return (
-    <section aria-label="Indoor Air Quality and Low-Cost Hack Center" className="flex flex-col gap-6 fade-in">
+    <section
+      aria-label="Indoor Air Quality and Low-Cost Hack Center"
+      className="flex flex-col gap-6 fade-in"
+    >
       {/* CADR Calculator & Room Profile */}
       <div className="bg-slate-900/70 border border-slate-700/50 rounded-3xl p-6 backdrop-blur-md flex flex-col gap-5">
         <div>
@@ -70,7 +73,8 @@ export const IAQCenter = memo(function IAQCenter() {
             <span aria-hidden="true">💨</span> Room CADR & Indoor Air Quality (IAQ) Calculator
           </h2>
           <p className="text-xs text-slate-400 mt-1">
-            Calculate Clean Air Delivery Rate (CADR) requirements, air changes per hour (ACH), and purification duration.
+            Calculate Clean Air Delivery Rate (CADR) requirements, air changes per hour (ACH), and
+            purification duration.
           </p>
         </div>
 
@@ -119,7 +123,9 @@ export const IAQCenter = memo(function IAQCenter() {
             <div>
               <div className="flex justify-between text-xs font-semibold text-slate-300">
                 <label htmlFor="room-cadr-range">Purifier Clean Air Delivery Rate (CADR):</label>
-                <span className="text-emerald-400 font-bold">{activeRoom.purifierCadrM3H} m³/h</span>
+                <span className="text-emerald-400 font-bold">
+                  {activeRoom.purifierCadrM3H} m³/h
+                </span>
               </div>
               <input
                 id="room-cadr-range"
@@ -179,11 +185,13 @@ export const IAQCenter = memo(function IAQCenter() {
         {cadrDeficit > 0 && (
           <div className="bg-amber-950/40 border border-amber-500/50 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-amber-200">
             <div className="flex items-center gap-2">
-              <span className="text-lg" aria-hidden="true">🛠️</span>
+              <span className="text-lg" aria-hidden="true">
+                🛠️
+              </span>
               <div>
                 <strong>CADR Deficit Detected:</strong> Your current setup is short by{' '}
-                <strong className="text-white">{cadrDeficit} m³/h</strong>.
-                Build a low-cost DIY Corsi-Rosenthal Box to achieve full 4 ACH protection!
+                <strong className="text-white">{cadrDeficit} m³/h</strong>. Build a low-cost DIY
+                Corsi-Rosenthal Box to achieve full 4 ACH protection!
               </div>
             </div>
           </div>

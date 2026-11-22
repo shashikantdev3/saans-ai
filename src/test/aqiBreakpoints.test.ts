@@ -4,11 +4,7 @@
 // ============================================================
 
 import { describe, it, expect } from 'vitest';
-import {
-  calculateAQICategory,
-  getAQIColor,
-  calculatePM25SubIndex,
-} from '@/lib/aqiCompute';
+import { calculateAQICategory, getAQIColor, calculatePM25SubIndex } from '@/lib/aqiCompute';
 import { AQICategory } from '@/types';
 
 describe('calculateAQICategory', () => {

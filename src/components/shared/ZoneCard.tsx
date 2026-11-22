@@ -14,11 +14,7 @@ interface ZoneCardProps {
   onSelect: (zoneId: string) => void;
 }
 
-export const ZoneCard = memo(function ZoneCard({
-  zone,
-  isSelected,
-  onSelect,
-}: ZoneCardProps) {
+export const ZoneCard = memo(function ZoneCard({ zone, isSelected, onSelect }: ZoneCardProps) {
   const aqiColor = getAQIColor(zone.aqi);
 
   return (
@@ -42,7 +38,11 @@ export const ZoneCard = memo(function ZoneCard({
           className="px-2.5 py-1 rounded-xl text-xs font-black text-white flex items-center gap-1 shadow-inner"
           style={{ backgroundColor: `${aqiColor}25`, borderColor: aqiColor, borderWidth: '1px' }}
         >
-          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: aqiColor }} aria-hidden="true" />
+          <span
+            className="w-2 h-2 rounded-full"
+            style={{ backgroundColor: aqiColor }}
+            aria-hidden="true"
+          />
           <span>AQI {zone.aqi}</span>
         </div>
       </div>

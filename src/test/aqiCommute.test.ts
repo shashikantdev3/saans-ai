@@ -138,6 +138,9 @@ describe('calculateCommunityOffset', () => {
 
   it('handles empty and unrecognized pledges gracefully', () => {
     expect(calculateCommunityOffset({})).toEqual({ totalCo2Kg: 0, totalPm25Grams: 0 });
-    expect(calculateCommunityOffset({ unknownCategory: 50 })).toEqual({ totalCo2Kg: 0, totalPm25Grams: 0 });
+    expect(calculateCommunityOffset({ unknownCategory: 50 })).toEqual({
+      totalCo2Kg: 0,
+      totalPm25Grams: 0,
+    });
   });
 });

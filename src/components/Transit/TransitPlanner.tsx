@@ -24,7 +24,10 @@ export const TransitPlanner = memo(function TransitPlanner() {
   } = useExposureRouting();
 
   return (
-    <section aria-label="Low-Emission Commute & Transit Planner" className="flex flex-col gap-6 fade-in">
+    <section
+      aria-label="Low-Emission Commute & Transit Planner"
+      className="flex flex-col gap-6 fade-in"
+    >
       {/* Route Pathfinder Selector */}
       <div className="bg-slate-900/70 border border-slate-700/50 rounded-3xl p-6 backdrop-blur-md flex flex-col gap-5">
         <div>
@@ -32,7 +35,8 @@ export const TransitPlanner = memo(function TransitPlanner() {
             <span aria-hidden="true">🚇</span> Low-Exposure Commute & Transit Path Optimizer
           </h2>
           <p className="text-xs text-slate-400 mt-1">
-            Dijkstra-powered algorithm identifying subterranean and clean-air corridors to bypass surface smog hotspots.
+            Dijkstra-powered algorithm identifying subterranean and clean-air corridors to bypass
+            surface smog hotspots.
           </p>
         </div>
 
@@ -80,7 +84,8 @@ export const TransitPlanner = memo(function TransitPlanner() {
           <div className="bg-slate-800/40 border border-slate-700/40 rounded-2xl p-4 flex flex-col gap-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">
-                Optimal Clean-Air Trajectory (Dijkstra Min-Exposure Cost: {lowestExposureResult.totalExposure})
+                Optimal Clean-Air Trajectory (Dijkstra Min-Exposure Cost:{' '}
+                {lowestExposureResult.totalExposure})
               </span>
               <span className="text-xs text-slate-300 font-medium">
                 Distance: <strong className="text-white">{routeDistanceKm} km</strong>
@@ -96,15 +101,17 @@ export const TransitPlanner = memo(function TransitPlanner() {
                         n.isMetro
                           ? 'bg-sky-950/80 text-sky-300 border-sky-500/50'
                           : n.isCleanCorridor
-                          ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/50'
-                          : 'bg-slate-800 text-slate-300 border-slate-700'
+                            ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/50'
+                            : 'bg-slate-800 text-slate-300 border-slate-700'
                       }`}
                     >
                       <span>{n.isMetro ? '🚇' : n.isCleanCorridor ? '🌲' : '📍'}</span>
                       <span>{n.name}</span>
                     </span>
                     {idx < pathNodes.length - 1 && (
-                      <span className="text-slate-500 font-bold" aria-hidden="true">➔</span>
+                      <span className="text-slate-500 font-bold" aria-hidden="true">
+                        ➔
+                      </span>
                     )}
                   </li>
                 ))}
@@ -122,7 +129,8 @@ export const TransitPlanner = memo(function TransitPlanner() {
               <span aria-hidden="true">⚖️</span> Multi-Modal Exposure & Carbon Comparison
             </h3>
             <p className="text-xs text-slate-400 mt-0.5">
-              Evaluated against current ambient air quality in {selectedZone.zoneName} (AQI {selectedZone.aqi})
+              Evaluated against current ambient air quality in {selectedZone.zoneName} (AQI{' '}
+              {selectedZone.aqi})
             </p>
           </div>
           <span className="text-xs text-slate-400">

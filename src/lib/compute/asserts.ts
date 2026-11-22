@@ -21,7 +21,7 @@ export function linearInterpolation(
   bpLo: number,
   bpHi: number,
   iLo: number,
-  iHi: number
+  iHi: number,
 ): number {
   return Math.round(((iHi - iLo) / (bpHi - bpLo)) * (cp - bpLo) + iLo);
 }

@@ -3,12 +3,7 @@
 // Baseline urban zones, atmospheric telemetry, and transit network graph
 // ============================================================
 
-import {
-  AQICategory,
-  PollutantType,
-  type UrbanZone,
-  type TransitNode,
-} from '@/types';
+import { AQICategory, PollutantType, type UrbanZone, type TransitNode } from '@/types';
 import type { PathEdge } from '@/lib/aqiCompute';
 
 export const DEFAULT_ZONES: UrbanZone[] = [
@@ -115,12 +110,48 @@ export const DEFAULT_ZONES: UrbanZone[] = [
 ];
 
 export const TRANSIT_NODES: TransitNode[] = [
-  { id: 'N-HOME', name: 'Residential Heights (Origin)', zoneId: 'Z-RESIDENTIAL', isMetro: false, isCleanCorridor: true },
-  { id: 'N-PARK', name: 'Riverside Park Green-Link', zoneId: 'Z-RIVERSIDE', isMetro: false, isCleanCorridor: true },
-  { id: 'N-METRO-EAST', name: 'East Gate Metro Station', zoneId: 'Z-RESIDENTIAL', isMetro: true, isCleanCorridor: true },
-  { id: 'N-JUNCTION', name: 'Ring Road Highway Bottleneck', zoneId: 'Z-INDUSTRIAL', isMetro: false, isCleanCorridor: false },
-  { id: 'N-METRO-HUB', name: 'Intermodal Metro Interchange', zoneId: 'Z-TRANSIT', isMetro: true, isCleanCorridor: true },
-  { id: 'N-WORK', name: 'City Financial Tower (Destination)', zoneId: 'Z-CENTRAL', isMetro: false, isCleanCorridor: false },
+  {
+    id: 'N-HOME',
+    name: 'Residential Heights (Origin)',
+    zoneId: 'Z-RESIDENTIAL',
+    isMetro: false,
+    isCleanCorridor: true,
+  },
+  {
+    id: 'N-PARK',
+    name: 'Riverside Park Green-Link',
+    zoneId: 'Z-RIVERSIDE',
+    isMetro: false,
+    isCleanCorridor: true,
+  },
+  {
+    id: 'N-METRO-EAST',
+    name: 'East Gate Metro Station',
+    zoneId: 'Z-RESIDENTIAL',
+    isMetro: true,
+    isCleanCorridor: true,
+  },
+  {
+    id: 'N-JUNCTION',
+    name: 'Ring Road Highway Bottleneck',
+    zoneId: 'Z-INDUSTRIAL',
+    isMetro: false,
+    isCleanCorridor: false,
+  },
+  {
+    id: 'N-METRO-HUB',
+    name: 'Intermodal Metro Interchange',
+    zoneId: 'Z-TRANSIT',
+    isMetro: true,
+    isCleanCorridor: true,
+  },
+  {
+    id: 'N-WORK',
+    name: 'City Financial Tower (Destination)',
+    zoneId: 'Z-CENTRAL',
+    isMetro: false,
+    isCleanCorridor: false,
+  },
 ];
 
 export const TRANSIT_GRAPH: Record<string, PathEdge[]> = {

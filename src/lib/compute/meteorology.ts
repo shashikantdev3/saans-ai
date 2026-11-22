@@ -18,7 +18,7 @@ export interface InversionRiskResult {
 export function evaluateInversionRisk(
   tempGroundC: number,
   tempUpperC: number,
-  windSpeedKmh: number
+  windSpeedKmh: number,
 ): InversionRiskResult {
   assertFiniteNumber(tempGroundC, 'tempGroundC');
   assertFiniteNumber(tempUpperC, 'tempUpperC');

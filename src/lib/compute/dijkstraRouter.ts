@@ -50,7 +50,7 @@ function findClosestNode(unvisited: Set<string>, distances: Record<string, numbe
 export function dijkstraLowestExposure(
   graph: Record<string, PathEdge[]>,
   start: string,
-  target: string
+  target: string,
 ): DijkstraResult | null {
   if (!graph[start] || !graph[target]) return null;
   if (start === target) return { path: [start], totalDistance: 0, totalExposure: 0 };

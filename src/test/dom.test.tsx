@@ -45,7 +45,7 @@ describe('Telemetry Simulation Controls', () => {
     render(
       <AppContextProvider>
         <AirTelemetryDashboard />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     const spikeBtn = screen.getByRole('button', { name: /Simulate Winter Smog Spike/i });
@@ -59,7 +59,7 @@ describe('Telemetry Simulation Controls', () => {
     render(
       <AppContextProvider>
         <AirTelemetryDashboard />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     const cleanBtn = screen.getByRole('button', { name: /Simulate Solar Wind Cleansing/i });
@@ -74,7 +74,7 @@ describe('Persona Profile Selection in Routine Optimizer', () => {
     render(
       <AppContextProvider>
         <DailyRoutineOptimizer />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     const elderlyBtn = screen.getByRole('button', { name: /Elderly Relative/i });
@@ -88,7 +88,7 @@ describe('IAQ Center Room & CADR Inputs', () => {
     render(
       <AppContextProvider>
         <IAQCenter />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     const areaInput = screen.getByLabelText(/Floor Area/i) as HTMLInputElement;
@@ -100,7 +100,7 @@ describe('IAQ Center Room & CADR Inputs', () => {
     render(
       <AppContextProvider>
         <IAQCenter />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     const livingRoomBtn = screen.getByRole('button', { name: /Living & Dining Room/i });
@@ -114,7 +114,7 @@ describe('Community Pledge Action', () => {
     render(
       <AppContextProvider>
         <CommunityHub />
-      </AppContextProvider>
+      </AppContextProvider>,
     );
 
     const pledgeButtons = screen.getAllByRole('button', { name: /Take the Pledge|Cancel Pledge/i });

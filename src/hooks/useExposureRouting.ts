@@ -6,18 +6,9 @@
 
 import { useState, useMemo, useCallback } from 'react';
 import { useAppContext } from '@/context/AppContext';
-import {
-  dijkstraLowestExposure,
-  calculateCommuteMetrics,
-} from '@/lib/aqiCompute';
-import {
-  TRANSIT_NODES,
-  TRANSIT_GRAPH,
-} from '@/lib/constants';
-import {
-  TransitMode,
-  type TransitRouteComparison,
-} from '@/types';
+import { dijkstraLowestExposure, calculateCommuteMetrics } from '@/lib/aqiCompute';
+import { TRANSIT_NODES, TRANSIT_GRAPH } from '@/lib/constants';
+import { TransitMode, type TransitRouteComparison } from '@/types';
 
 export function useExposureRouting() {
   const { selectedZone } = useAppContext();
@@ -29,7 +20,9 @@ export function useExposureRouting() {
   }, [originId]);
 
   const destNode = useMemo(() => {
-    return TRANSIT_NODES.find((n) => n.id === destinationId) || TRANSIT_NODES[TRANSIT_NODES.length - 1];
+    return (
+      TRANSIT_NODES.find((n) => n.id === destinationId) || TRANSIT_NODES[TRANSIT_NODES.length - 1]
+    );
   }, [destinationId]);
 
   const lowestExposureResult = useMemo(() => {
@@ -39,7 +32,14 @@ export function useExposureRouting() {
   const pathNodes = useMemo(() => {
     if (!lowestExposureResult) return [];
     return lowestExposureResult.path.map(
-      (nodeId) => TRANSIT_NODES.find((n) => n.id === nodeId) || { id: nodeId, name: nodeId, zoneId: '', isMetro: false, isCleanCorridor: false }
+      (nodeId) =>
+        TRANSIT_NODES.find((n) => n.id === nodeId) || {
+          id: nodeId,
+          name: nodeId,
+          zoneId: '',
+          isMetro: false,
+          isCleanCorridor: false,
+        },
     );
   }, [lowestExposureResult]);
 

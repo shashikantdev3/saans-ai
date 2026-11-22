@@ -26,7 +26,8 @@ export const WindowSchedule = memo(function WindowSchedule({ currentAqi }: Windo
           </span>
           <strong className="text-white text-sm block mt-1">Windows Tightly Latched</strong>
           <p className="text-slate-300 text-[11px] mt-1">
-            Cold nocturnal air traps ground-level vehicular soot. Opening windows increases indoor PM2.5 by 300%.
+            Cold nocturnal air traps ground-level vehicular soot. Opening windows increases indoor
+            PM2.5 by 300%.
           </p>
         </div>
 
@@ -34,9 +35,12 @@ export const WindowSchedule = memo(function WindowSchedule({ currentAqi }: Windo
           <span className="text-[10px] font-black uppercase tracking-wider text-emerald-400 block">
             Optimal Flush Window (1:30 PM – 3:30 PM)
           </span>
-          <strong className="text-white text-sm block mt-1">Crack Opposing Windows (15 mins)</strong>
+          <strong className="text-white text-sm block mt-1">
+            Crack Opposing Windows (15 mins)
+          </strong>
           <p className="text-slate-300 text-[11px] mt-1">
-            Solar radiation breaks the surface inversion, maximizing natural vertical air mixing and flushing stale CO2.
+            Solar radiation breaks the surface inversion, maximizing natural vertical air mixing and
+            flushing stale CO2.
           </p>
         </div>
 
@@ -46,7 +50,8 @@ export const WindowSchedule = memo(function WindowSchedule({ currentAqi }: Windo
           </span>
           <strong className="text-white text-sm block mt-1">Seal Perimeter & Run HEPA</strong>
           <p className="text-slate-300 text-[11px] mt-1">
-            Commuter traffic and cooling surface temperatures cause toxic secondary particulate settling.
+            Commuter traffic and cooling surface temperatures cause toxic secondary particulate
+            settling.
           </p>
         </div>
       </div>

@@ -12,10 +12,7 @@ interface AlertBannerProps {
   onDismiss: (id: string) => void;
 }
 
-export const AlertBanner = memo(function AlertBanner({
-  alerts,
-  onDismiss,
-}: AlertBannerProps) {
+export const AlertBanner = memo(function AlertBanner({ alerts, onDismiss }: AlertBannerProps) {
   if (!alerts || alerts.length === 0) return null;
 
   return (
@@ -43,9 +40,7 @@ export const AlertBanner = memo(function AlertBanner({
                 <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-red-900/60 border border-red-500/50">
                   {alert.zone}
                 </span>
-                <h4 className="font-bold text-sm text-white mt-1 leading-snug">
-                  {alert.headline}
-                </h4>
+                <h4 className="font-bold text-sm text-white mt-1 leading-snug">{alert.headline}</h4>
               </div>
             </div>
             <button
@@ -57,9 +52,7 @@ export const AlertBanner = memo(function AlertBanner({
               ✕
             </button>
           </div>
-          <p className="text-xs text-slate-200 mt-2 leading-relaxed">
-            {alert.instructions}
-          </p>
+          <p className="text-xs text-slate-200 mt-2 leading-relaxed">{alert.instructions}</p>
         </div>
       ))}
     </div>

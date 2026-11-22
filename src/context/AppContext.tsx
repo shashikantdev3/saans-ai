@@ -5,14 +5,7 @@
 // ============================================================
 /* oxlint-disable react/only-export-components */
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useMemo,
-  type ReactNode,
-} from 'react';
+import { createContext, useContext, useState, useCallback, useMemo, type ReactNode } from 'react';
 import {
   TabId,
   Language,
@@ -24,11 +17,7 @@ import {
   type CommunityPledge,
   type CommunityAlert,
 } from '@/types';
-import {
-  DEFAULT_ZONES,
-  DEFAULT_PERSONAS,
-  DEFAULT_ALERTS,
-} from '@/lib/constants';
+import { DEFAULT_ZONES, DEFAULT_PERSONAS, DEFAULT_ALERTS } from '@/lib/constants';
 import { storageService } from '@/services/storageService';
 import type { AppContextValue } from './types';
 
@@ -37,11 +26,19 @@ const AppContext = createContext<AppContextValue | null>(null);
 export function AppContextProvider({ children }: { children: ReactNode }) {
   const [activeTab, setActiveTabState] = useState<TabId>(TabId.Dashboard);
   const [zones, setZones] = useState<UrbanZone[]>(() => storageService.getZones());
-  const [selectedZoneId, setSelectedZoneIdState] = useState<string>(() => storageService.getSelectedZoneId());
-  const [activePersona, setActivePersonaState] = useState<PersonaProfile>(() => storageService.getActivePersona());
+  const [selectedZoneId, setSelectedZoneIdState] = useState<string>(() =>
+    storageService.getSelectedZoneId(),
+  );
+  const [activePersona, setActivePersonaState] = useState<PersonaProfile>(() =>
+    storageService.getActivePersona(),
+  );
   const [language, setLanguageState] = useState<Language>(Language.English);
-  const [accessibilityMode, setAccessibilityModeState] = useState<AccessibilityMode>(AccessibilityMode.Standard);
-  const [routinePlan, setRoutinePlanState] = useState<DailyRoutinePlan | null>(() => storageService.getRoutinePlan());
+  const [accessibilityMode, setAccessibilityModeState] = useState<AccessibilityMode>(
+    AccessibilityMode.Standard,
+  );
+  const [routinePlan, setRoutinePlanState] = useState<DailyRoutinePlan | null>(() =>
+    storageService.getRoutinePlan(),
+  );
   const [rooms, setRooms] = useState<IAQRoomConfig[]>(() => storageService.getRooms());
   const [pledges, setPledges] = useState<CommunityPledge[]>(() => storageService.getPledges());
   const [alerts, setAlerts] = useState<CommunityAlert[]>(DEFAULT_ALERTS);
@@ -62,7 +59,9 @@ export function AppContextProvider({ children }: { children: ReactNode }) {
 
   const updateZone = useCallback((zoneId: string, updates: Partial<UrbanZone>) => {
     setZones((prev) => {
-      const next = prev.map((z) => (z.zoneId === zoneId ? { ...z, ...updates, lastUpdated: Date.now() } : z));
+      const next = prev.map((z) =>
+        z.zoneId === zoneId ? { ...z, ...updates, lastUpdated: Date.now() } : z,
+      );
       storageService.saveZones(next);
       return next;
     });
@@ -106,7 +105,9 @@ export function AppContextProvider({ children }: { children: ReactNode }) {
           return {
             ...p,
             userPledged,
-            currentParticipants: userPledged ? p.currentParticipants + 1 : Math.max(0, p.currentParticipants - 1),
+            currentParticipants: userPledged
+              ? p.currentParticipants + 1
+              : Math.max(0, p.currentParticipants - 1),
           };
         }
         return p;
@@ -120,55 +121,58 @@ export function AppContextProvider({ children }: { children: ReactNode }) {
     setAlerts((prev) => prev.filter((a) => a.id !== id));
   }, []);
 
-  const value = useMemo<AppContextValue>(() => ({
-    activeTab,
-    setActiveTab,
-    zones,
-    selectedZoneId,
-    selectedZone,
-    setSelectedZoneId,
-    updateZone,
-    personas: DEFAULT_PERSONAS,
-    activePersona,
-    setActivePersona,
-    language,
-    setLanguage,
-    accessibilityMode,
-    setAccessibilityMode,
-    routinePlan,
-    setRoutinePlan,
-    rooms,
-    updateRoom,
-    pledges,
-    togglePledge,
-    alerts,
-    dismissAlert,
-    globalBanner,
-    setGlobalBanner,
-  }), [
-    activeTab,
-    setActiveTab,
-    zones,
-    selectedZoneId,
-    selectedZone,
-    setSelectedZoneId,
-    updateZone,
-    activePersona,
-    setActivePersona,
-    language,
-    setLanguage,
-    accessibilityMode,
-    setAccessibilityMode,
-    routinePlan,
-    setRoutinePlan,
-    rooms,
-    updateRoom,
-    pledges,
-    togglePledge,
-    alerts,
-    dismissAlert,
-    globalBanner,
-  ]);
+  const value = useMemo<AppContextValue>(
+    () => ({
+      activeTab,
+      setActiveTab,
+      zones,
+      selectedZoneId,
+      selectedZone,
+      setSelectedZoneId,
+      updateZone,
+      personas: DEFAULT_PERSONAS,
+      activePersona,
+      setActivePersona,
+      language,
+      setLanguage,
+      accessibilityMode,
+      setAccessibilityMode,
+      routinePlan,
+      setRoutinePlan,
+      rooms,
+      updateRoom,
+      pledges,
+      togglePledge,
+      alerts,
+      dismissAlert,
+      globalBanner,
+      setGlobalBanner,
+    }),
+    [
+      activeTab,
+      setActiveTab,
+      zones,
+      selectedZoneId,
+      selectedZone,
+      setSelectedZoneId,
+      updateZone,
+      activePersona,
+      setActivePersona,
+      language,
+      setLanguage,
+      accessibilityMode,
+      setAccessibilityMode,
+      routinePlan,
+      setRoutinePlan,
+      rooms,
+      updateRoom,
+      pledges,
+      togglePledge,
+      alerts,
+      dismissAlert,
+      globalBanner,
+    ],
+  );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

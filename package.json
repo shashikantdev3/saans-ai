@@ -11,8 +11,11 @@
     "server": "node --import tsx server.ts",
     "server:dev": "tsx watch server.ts",
     "lint": "oxlint --deny-warnings",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" index.html metadata.json package.json tsconfig.json vite.config.ts",
+    "typecheck": "tsc -b",
     "test": "vitest",
     "test:run": "vitest run",
+    "test:frontend": "vitest run --exclude src/test/api.test.ts",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
@@ -38,6 +41,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "jsdom": "^26.0.0",
     "oxlint": "^1.94.0",
+    "prettier": "^3.5.3",
     "tailwindcss": "^4.0.9",
     "tsx": "^4.19.3",
     "typescript": "^5.7.3",

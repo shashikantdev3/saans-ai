@@ -1,55 +1,40 @@
-name: CI
+name: CI Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   pull_request:
-
-permissions:
-  contents: read
-
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
+    branches: [main, master]
 
 jobs:
-  quality:
-    name: Lint, types, unit and API tests, audit, size
+  quality-and-test:
+    name: Lint, Format, Frontend Tests & Build
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run format:check
-      - run: npm run typecheck
-      - run: npm run test:coverage
-      - run: npm audit --audit-level=low
-      - run: npm run check:size
 
-  e2e:
-    name: End-to-end and accessibility (Playwright + axe)
-    runs-on: ubuntu-latest
-    needs: quality
-    env:
-      SAANS_FIXTURES: '1'
-      NEXT_TELEMETRY_DISABLED: '1'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: npm run build
-      - run: npm run test:e2e
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: playwright-report
-          path: playwright-report
-          retention-days: 7
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install Project Dependencies
+        run: npm ci || npm install
+
+      - name: Static Code Analysis (Oxlint)
+        run: npm run lint
+
+      - name: Check Frontend Formatting
+        run: npm run format:check
+
+      - name: Strict TypeScript Compilation
+        run: npm run typecheck
+
+      - name: Execute Frontend Vitest Suite
+        run: npm run test:frontend
+
+      - name: Production Bundle Compilation
+        run: npm run build

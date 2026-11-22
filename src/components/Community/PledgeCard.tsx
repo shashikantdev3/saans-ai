@@ -21,7 +21,7 @@ export const PledgeCard = memo(function PledgeCard({
 }: PledgeCardProps) {
   const progress = Math.min(
     100,
-    Math.round((pledge.currentParticipants / pledge.targetParticipants) * 100)
+    Math.round((pledge.currentParticipants / pledge.targetParticipants) * 100),
   );
 
   return (
@@ -34,9 +34,7 @@ export const PledgeCard = memo(function PledgeCard({
     >
       <div>
         <div className="flex items-center justify-between gap-2">
-          <h4 className="font-bold text-white text-base leading-snug">
-            {pledge.title}
-          </h4>
+          <h4 className="font-bold text-white text-base leading-snug">{pledge.title}</h4>
           {pledge.userPledged && (
             <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-500/50">
               {pledgedLabel}
@@ -44,15 +42,14 @@ export const PledgeCard = memo(function PledgeCard({
           )}
         </div>
 
-        <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-          {pledge.impactDescription}
-        </p>
+        <p className="text-xs text-slate-300 mt-2 leading-relaxed">{pledge.impactDescription}</p>
       </div>
 
       <div className="flex flex-col gap-2">
         <div className="flex justify-between text-xs text-slate-400">
           <span>
-            Participation: <strong className="text-white">{pledge.currentParticipants}</strong> / {pledge.targetParticipants} households
+            Participation: <strong className="text-white">{pledge.currentParticipants}</strong> /{' '}
+            {pledge.targetParticipants} households
           </span>
           <span className="font-bold text-emerald-400">{progress}%</span>
         </div>
@@ -71,7 +68,10 @@ export const PledgeCard = memo(function PledgeCard({
 
         <div className="flex items-center justify-between pt-3 border-t border-slate-800/80 mt-1">
           <span className="text-xs text-slate-400">
-            Est. Relief: <strong className="text-slate-200">~{pledge.estimatedEmissionReductionKg} kg CO₂ / wk</strong>
+            Est. Relief:{' '}
+            <strong className="text-slate-200">
+              ~{pledge.estimatedEmissionReductionKg} kg CO₂ / wk
+            </strong>
           </span>
 
           <button
