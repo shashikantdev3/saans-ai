@@ -46,7 +46,17 @@ flowchart LR
   R --> U
 ```
 
-Folders: `app` (pages and API routes), `components` (UI), `lib/data`, `lib/aqi`, `lib/impact`, `lib/plan`, `lib/ai`, `lib/security`, `lib/i18n`, `tests`.
+Folders: `app` (pages and API routes), `components` (UI), `hooks` (state), `lib/data`, `lib/aqi`, `lib/impact`, `lib/plan`, `lib/ai`, `lib/security`, `lib/i18n`, `tests`.
+
+| Detail                    | Document                                     |
+| ------------------------- | -------------------------------------------- |
+| Structure and conventions | [CODE_QUALITY.md](CODE_QUALITY.md)           |
+| Threat model and controls | [SECURITY.md](SECURITY.md)                   |
+| Test layers and coverage  | [TESTING.md](TESTING.md)                     |
+| WCAG 2.1 AA measures      | [ACCESSIBILITY.md](ACCESSIBILITY.md)         |
+| Caching and model use     | [EFFICIENCY.md](EFFICIENCY.md)               |
+| Mapping to the brief      | [PROBLEM_ALIGNMENT.md](PROBLEM_ALIGNMENT.md) |
+| Why it is built this way  | [docs/DECISIONS.md](docs/DECISIONS.md)       |
 
 ## Decision rules (lib/plan/rules.ts)
 
@@ -126,8 +136,8 @@ Works without a key too: you get rule-based text in place of Gemini. `SAANS_FIXT
 ## Test
 
 ```bash
-npm run lint && npm run typecheck
-npm test                 # unit + API tests (Vitest): AQI, formulas, rules, routes with mocked Open-Meteo and Gemini
+npm run check            # lint, format, types, and all Vitest suites with coverage thresholds
+npm test                 # 156 tests: 104 unit, 27 API (mocked Open-Meteo and Gemini), 25 component (Testing Library)
 npm run test:coverage
 npm run build && npx playwright install chromium && npm run test:e2e   # search, plan, chat, axe a11y, keyboard
 npm run check:size       # repo must stay under 10 MB
