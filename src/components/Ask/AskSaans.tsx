@@ -1,7 +1,7 @@
 // ============================================================
 // src/components/Ask/AskSaans.tsx
 // Free-text questions answered by Gemini, grounded in the selected
-// area's live readings and the active household profile.
+// area's readings and the active household profile.
 // ============================================================
 
 import { memo, useCallback, useId, useState, type FormEvent } from 'react';
@@ -87,7 +87,7 @@ export const AskSaans = memo(function AskSaans() {
             </span>
           </h2>
           <p className="text-sm text-[#3d5a66] mt-1">
-            Ask anything about today&apos;s air. Saans answers using the live readings for{' '}
+            Ask anything about today&apos;s air. Saans answers using the readings for{' '}
             <strong className="text-[#18313d]">
               {selectedZone.zoneName} (AQI {selectedZone.aqi})
             </strong>{' '}
