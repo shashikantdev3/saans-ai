@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import type { Place } from '@/lib/impact/dose';
 import { FACTORS, type FactorKey } from '@/lib/impact/factors';
 import type { Plan } from '@/lib/plan/buildPlan';
@@ -63,7 +64,7 @@ function Sources({ keys }: { keys: FactorKey[] }) {
   );
 }
 
-export function ImpactPanel({ plan }: { plan: Plan }) {
+export const ImpactPanel = memo(function ImpactPanel({ plan }: { plan: Plan }) {
   const { t, lang } = useI18n();
   const alt = describeAlternative(lang, plan.alternative);
   const altKeys: FactorKey[] =
@@ -143,4 +144,4 @@ export function ImpactPanel({ plan }: { plan: Plan }) {
       </div>
     </div>
   );
-}
+});

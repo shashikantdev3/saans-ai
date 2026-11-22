@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { BANDS } from '@/lib/aqi/bands';
 import type { ForecastPoint } from '@/lib/data/summary';
 import { useI18n } from '../ui/I18n';
@@ -14,7 +15,7 @@ const BOTTOM = 26;
 const fill = (band: ForecastPoint['band']) => BANDS.find((b) => b.band === band)?.bg ?? '#999';
 
 /** Hand-drawn SVG bars: no chart library, so it stays light on low-end phones. */
-export function ForecastChart({ points }: { points: ForecastPoint[] }) {
+export const ForecastChart = memo(function ForecastChart({ points }: { points: ForecastPoint[] }) {
   const { t } = useI18n();
   if (points.length === 0) return null;
   const max = Math.max(60, ...points.map((p) => p.pm25));
@@ -111,4 +112,4 @@ export function ForecastChart({ points }: { points: ForecastPoint[] }) {
       </details>
     </div>
   );
-}
+});

@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import type { AqiBand } from '@/lib/aqi/bands';
 import { useI18n } from './I18n';
 
@@ -13,7 +14,13 @@ export const BAND_CLASSES: Record<AqiBand, string> = {
   severe: 'bg-[#7b1f1f] text-white',
 };
 
-export function BandBadge({ band, className = '' }: { band: AqiBand; className?: string }) {
+export const BandBadge = memo(function BandBadge({
+  band,
+  className = '',
+}: {
+  band: AqiBand;
+  className?: string;
+}) {
   const { t } = useI18n();
   return (
     <span
@@ -22,4 +29,4 @@ export function BandBadge({ band, className = '' }: { band: AqiBand; className?:
       {t(`band_${band}`)}
     </span>
   );
-}
+});

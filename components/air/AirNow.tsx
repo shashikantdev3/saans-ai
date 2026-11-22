@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import type { AqiBand } from '@/lib/aqi/bands';
 import type { AirSummary } from '@/lib/data/summary';
 import type { PollutantKey } from '@/lib/data/types';
@@ -18,7 +19,7 @@ const HAZE: Record<AqiBand, string> = {
 
 const POLLUTANTS: Exclude<PollutantKey, 'co'>[] = ['pm2_5', 'pm10', 'no2', 'o3', 'so2'];
 
-export function AirNow({ place, air }: { place: string; air: AirSummary }) {
+export const AirNow = memo(function AirNow({ place, air }: { place: string; air: AirSummary }) {
   const { t } = useI18n();
   const band = air.aqi?.band.band ?? air.forecast[0]?.band ?? 'moderate';
   return (
@@ -67,4 +68,4 @@ export function AirNow({ place, air }: { place: string; air: AirSummary }) {
       </p>
     </div>
   );
-}
+});

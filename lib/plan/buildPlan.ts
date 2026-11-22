@@ -6,17 +6,11 @@
 import { pm25Band, type AqiBand } from '../aqi/bands';
 import { indianAqi, type IndianAqi } from '../aqi/cpcb';
 import type { AirData } from '../data/types';
-import { doseByPlace, totalDose, type Activity, type DoseSlot, type Place } from '../impact/dose';
-import {
-  cleanerAlternative,
-  commuteSwitchSaving,
-  generatorVsInverter,
-  type CommuteMode,
-} from '../impact/emissions';
-import { FACTORS } from '../impact/factors';
+import { doseByPlace, totalDose, type Place } from '../impact/dose';
 import { indoorHacks, type Hack } from '../impact/hacks';
-import { ioRatio, percentCut, roomVolume } from '../impact/indoor';
+import { percentCut } from '../impact/indoor';
 import type { Profile } from '../profile/schema';
+import { chooseAlternative, type Alternative } from './alternative';
 import {
   bestWindow,
   commuteRule,
@@ -25,27 +19,15 @@ import {
   maskRule,
   next24,
   outdoorRule,
-  shouldWorkFromHome,
+  planItem,
   windowsRule,
   worstWindow,
   type HourWindow,
   type PlanItem,
 } from './rules';
+import { daySlots } from './schedule';
 
-export type Alternative =
-  | {
-      kind: 'commute';
-      from: CommuteMode;
-      to: CommuteMode;
-      kmOneWay: number;
-      commuteDays: number;
-      gramsPerDay: number;
-      kgPerWeek: number;
-      percent: number;
-    }
-  | { kind: 'generator'; kwh: number; dieselKg: number; inverterKg: number }
-  | { kind: 'cooking_fuel' }
-  | { kind: 'walk_errands' };
+export type { Alternative } from './alternative';
 
 export interface DoseSummary {
   baselineUg: number;
@@ -78,116 +60,6 @@ export class InsufficientDataError extends Error {
   }
 }
 
-const SLEEP_START = 23;
-const SLEEP_END = 6;
-const LEAVE_HOUR = 9;
-const RETURN_HOUR = 18;
-const COMMUTE_KMH = 20;
-/** Typical daily generator use when someone says they use one (assumption). */
-const GENERATOR_KWH_PER_DAY = 4;
-
-type Scenario = 'baseline' | 'plan';
-
-function commuteFactor(mode: CommuteMode, scenario: Scenario): number {
-  if (mode === 'metro') return FACTORS.inVehicleClosed.value;
-  if ((mode === 'car' || mode === 'carpool') && scenario === 'plan')
-    return FACTORS.inVehicleClosed.value;
-  return FACTORS.inVehicleOpen.value;
-}
-
-function commuteActivity(mode: CommuteMode): Activity {
-  if (mode === 'walk' || mode === 'cycle') return 'moderate';
-  if (mode === 'two_wheeler') return 'light';
-  return 'rest';
-}
-
-/**
- * One representative adult's day.
- * Baseline ("do nothing"): windows open in the daytime, no purifier, usual outdoor hour,
- * car windows down. Plan: windows shut, purifier on if owned, outdoor time moved to the
- * cleanest hour (or indoors on severe days), car air on recirculation, WFH if worthwhile.
- */
-export function daySlots(
-  windows: readonly HourWindow[],
-  profile: Profile,
-  scenario: Scenario,
-  best: HourWindow,
-  band: AqiBand,
-): DoseSlot[] {
-  const volume = roomVolume(profile.roomSizeM2);
-  const purifierCadr = scenario === 'plan' && profile.hasPurifier ? FACTORS.purifierCadr.value : 0;
-  const closedRatio = ioRatio(FACTORS.airExchangeClosed.value, volume, purifierCadr);
-  const openRatio = ioRatio(FACTORS.airExchangeOpen.value, volume);
-  const officeRatio = ioRatio(FACTORS.airExchangeClosed.value, volume);
-  const wfh = scenario === 'plan' && shouldWorkFromHome(band, profile);
-  const commutes =
-    profile.commuteMode !== 'none' && profile.commuteKm > 0 && profile.wfhDays < 5 && !wfh;
-  const legHours = Math.min(2, Math.max(0.25, profile.commuteKm / COMMUTE_KMH));
-  const outdoorHour = scenario === 'plan' ? best.hour : profile.usualOutdoorHour;
-  const outdoorIndoors = scenario === 'plan' && best.band === 'severe';
-
-  const homeRatio = (hour: number) => {
-    if (scenario === 'plan') return closedRatio;
-    return hour >= 8 && hour < 20 ? openRatio : ioRatio(FACTORS.airExchangeClosed.value, volume);
-  };
-
-  const slots: DoseSlot[] = [];
-  for (const w of windows) {
-    const base = { hour: w.hour, outdoorPm25: w.pm25 };
-    const asleep = w.hour >= SLEEP_START || w.hour < SLEEP_END;
-    if (w.hour === outdoorHour && !asleep) {
-      slots.push(
-        outdoorIndoors
-          ? { ...base, place: 'home', activity: 'moderate', factor: closedRatio, hours: 1 }
-          : { ...base, place: 'outdoor', activity: 'moderate', factor: 1, hours: 1 },
-      );
-      continue;
-    }
-    if (commutes && (w.hour === LEAVE_HOUR || w.hour === RETURN_HOUR)) {
-      const rest = 1 - legHours;
-      slots.push({
-        ...base,
-        place: 'commute',
-        activity: commuteActivity(profile.commuteMode),
-        factor: commuteFactor(profile.commuteMode, scenario),
-        hours: Math.min(1, legHours),
-      });
-      if (rest > 0) {
-        const place: Place = w.hour === LEAVE_HOUR ? 'work' : 'home';
-        const factor = place === 'work' ? officeRatio : homeRatio(w.hour);
-        slots.push({ ...base, place, activity: 'light', factor, hours: rest });
-      }
-      continue;
-    }
-    if (commutes && w.hour > LEAVE_HOUR && w.hour < RETURN_HOUR) {
-      slots.push({ ...base, place: 'work', activity: 'light', factor: officeRatio, hours: 1 });
-      continue;
-    }
-    slots.push({
-      ...base,
-      place: 'home',
-      activity: asleep ? 'sleep' : 'rest',
-      factor: homeRatio(w.hour),
-      hours: 1,
-    });
-  }
-  return slots;
-}
-
-function chooseAlternative(profile: Profile): Alternative {
-  const to = cleanerAlternative(profile.commuteMode, profile.commuteKm);
-  const commuteDays = Math.max(0, 5 - profile.wfhDays);
-  if (to && commuteDays > 0) {
-    const saving = commuteSwitchSaving(profile.commuteMode, to, profile.commuteKm, commuteDays);
-    return { kind: 'commute', kmOneWay: profile.commuteKm, commuteDays, ...saving };
-  }
-  if (profile.usesGenerator)
-    return { kind: 'generator', ...generatorVsInverter(GENERATOR_KWH_PER_DAY) };
-  if (profile.cookingFuel === 'biomass' || profile.cookingFuel === 'kerosene')
-    return { kind: 'cooking_fuel' };
-  return { kind: 'walk_errands' };
-}
-
 const sortByTime = (a: PlanItem, b: PlanItem) => (a.time ?? '99').localeCompare(b.time ?? '99');
 
 export function buildPlan(air: AirData, profile: Profile): Plan {
@@ -208,8 +80,8 @@ export function buildPlan(air: AirData, profile: Profile): Plan {
     commuteRule(band, profile, best),
     cookingRule(profile, band),
     heatingRule(profile),
-    { id: 'cleaning_wet', severity: 'info', params: {} } as PlanItem,
-    { id: 'no_burning', severity: 'caution', params: {} } as PlanItem,
+    planItem('cleaning_wet', 'info'),
+    planItem('no_burning', 'caution'),
   ]
     .filter((i): i is PlanItem => i !== null)
     .sort(sortByTime);

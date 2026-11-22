@@ -39,6 +39,16 @@ export interface PlanItem {
   params: Record<string, string | number>;
 }
 
+/** Build a plan item; keeps call sites short and typed. */
+export function planItem(
+  id: PlanItemId,
+  severity: Severity,
+  params: PlanItem['params'] = {},
+  time?: string,
+): PlanItem {
+  return time === undefined ? { id, severity, params } : { id, time, severity, params };
+}
+
 export interface HourWindow {
   time: string;
   hour: number;

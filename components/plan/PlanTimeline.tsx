@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import type { PlanResponse } from '@/lib/client/api';
 import { describeItem } from '@/lib/plan/describe';
 import type { Severity } from '@/lib/plan/rules';
@@ -12,7 +13,7 @@ const SEVERITY_BAR: Record<Severity, string> = {
   warning: 'border-[#b3261e]',
 };
 
-export function PlanTimeline({ data }: { data: PlanResponse }) {
+export const PlanTimeline = memo(function PlanTimeline({ data }: { data: PlanResponse }) {
   const { t, lang } = useI18n();
   const { plan, explanation } = data;
   const ai = explanation.source === 'gemini';
@@ -80,4 +81,4 @@ export function PlanTimeline({ data }: { data: PlanResponse }) {
       </details>
     </div>
   );
-}
+});
