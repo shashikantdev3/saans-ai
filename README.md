@@ -2,7 +2,9 @@
 
 **Breathe easier through winter smog.** Saans helps Indian families get through severe winter smog with low-emission daily routines, indoor air hacks and cleaner alternatives that fit their location and household. It also shows the direct impact of each choice.
 
-Live demo: https://saans-ai.vercel.app
+Live demo: https://saans-ai-kappa.vercel.app
+
+Demo video (3 min): https://youtu.be/dRF2axTNMGU
 
 ---
 
@@ -153,7 +155,7 @@ gcloud run deploy saans-ai --source . --region asia-south1 --allow-unauthenticat
 
 ```bash
 npx playwright install chromium
-node scripts/record-demo.mjs https://saans-ai.vercel.app
+node scripts/record-demo.mjs https://saans-ai-kappa.vercel.app
 ```
 
 ## Accessibility
