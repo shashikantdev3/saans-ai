@@ -1,34 +1,36 @@
-# AeroGuard AI Code Quality Audit Report
+# Testing
 
-**Evaluation Pillar: Code Quality (Target: 100/100)**  
-**Audit Status: Fully Compliant with Zero Warnings**
+96 automated tests in 9 Vitest files. They run in about 5 seconds and need no network or API key: Gemini is switched off in tests or replaced with a mock.
 
-## 1. Modular Architecture & Line Limits
-- **Module Line Limit ($\le$ 200 lines)**: 100% verified across all TypeScript and TSX files.
-  - `server.ts`: 95 lines (routes and middleware separated into `server/`)
-  - `src/lib/aqiCompute.ts`: 7 lines (facade delegating to `src/lib/compute/`)
-  - `src/lib/constants.ts`: 7 lines (facade delegating to `src/lib/constants/`)
-  - `src/components/Dashboard/AirTelemetryDashboard.tsx`: 193 lines (isolated heatmap into `SmogHeatmap.tsx`)
-  - `src/components/Routine/DailyRoutineOptimizer.tsx`: 189 lines (isolated timeline into `RoutineTimeline.tsx`)
-  - `src/components/IAQ/IAQCenter.tsx`: 178 lines (isolated schedule into `WindowSchedule.tsx` & `DIYHackGrid.tsx`)
-  - `src/components/Community/CommunityHub.tsx`: 171 lines (isolated pledge cards into `PledgeCard.tsx`)
-  - `src/components/Transit/TransitPlanner.tsx`: 146 lines (isolated table into `TransitComparisonTable.tsx`)
-  - `src/context/AppContext.tsx`: 165 lines (types isolated into `src/context/types.ts`)
-- **Function Line Limit ($\le$ 25 lines)**: All functions, component sub-blocks, and calculation engines decompose into concise units.
+## 1. What is covered
 
-## 2. Static Analysis & Type Safety
-- **Linter**: `oxlint --deny-warnings` passes with 0 errors and 0 warnings across all source files.
-- **TypeScript**: `tsc -b` passes with strict mode enabled, zero implicit any, and comprehensive interface coverage.
-- **Zero Magic Numbers**: Breakpoints, emission weights, and CADR coefficients are centralized in `src/lib/constants/` and typed enums.
+| File                     | Tests | What it proves                                                                                 |
+| ------------------------ | ----- | ---------------------------------------------------------------------------------------------- |
+| `aqiBreakpoints.test.ts` | 18    | AQI breakpoints and band edges                                                                 |
+| `aqiCommute.test.ts`     | 17    | Commute dose and CO2 per travel mode                                                           |
+| `aqiIaq.test.ts`         | 11    | Room volume, CADR target, air changes, clean-air time                                          |
+| `routing.test.ts`        | 7     | Dijkstra lowest-exposure route                                                                 |
+| `rendering.test.tsx`     | 8     | Each tab renders with its landmarks                                                            |
+| `dom.test.tsx`           | 7     | Tab switching, persona choice, smog simulation, pledges                                        |
+| `askSaans.test.tsx`      | 5     | Ask Saans: empty question, over 300 characters, Gemini answer with prompt, server error shown  |
+| `api.test.ts`            | 18    | Every API route over real HTTP: valid input, bad input, emergency wording, headers, rate limit |
+| `aiService.test.ts`      | 5     | Gemini text merged without changing any number; bad JSON and outages fall back to rules        |
 
-## 3. Test Coverage & Verification
-- **Test Suite**: 78 automated unit, DOM, rendering, and API tests executed via Vitest.
-- **Pass Rate**: 100% (78 passed, 0 failed).
-- **Execution Speed**: Full test suite runs in under 4.1 seconds.
-- **Test Isolation**: All external network calls mocked; deterministic in-memory fixtures for predictable evaluation.
+## 2. Edge cases tested on purpose
 
-## 4. Frontend & Security Hygiene
-- **DOM Safety**: Zero direct `dangerouslySetInnerHTML` with dynamic user data.
-- **Security Headers**: Helmet Content-Security-Policy, `X-Content-Type-Options: nosniff`, and origin validation.
-- **Rate Limiting**: 30 requests/minute/IP window on GenAI endpoints.
-- **CWE-209 Defense**: Server-side error handler prevents stack trace leakage.
+- Empty, whitespace-only and over-long questions are rejected in the browser and on the server.
+- Out-of-range readings (for example AQI -99) and incomplete profiles return 400 with a clear message.
+- Malformed JSON returns 400, unknown API routes return a JSON 404.
+- "Cannot breathe" and "chest pain" get fixed 112 guidance and never reach the model.
+- Prompt text with angle brackets cannot break out of the `<question>` fence.
+- Gemini returning invalid JSON, or nothing at all, still produces a usable plan.
+
+## 3. Run
+
+```bash
+npm run test:run       # all tests once
+npm test               # watch mode
+npm run test:coverage  # with coverage
+```
+
+CI runs the full suite on every push, after lint and type checks and before the production build.

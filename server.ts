@@ -25,6 +25,7 @@ import {
 } from './server/validators.js';
 import { hashPayload, insightCache, pruneCache } from './server/cache.js';
 import { getAiRoutineInsights, getEmergencyAdvisoryText } from './server/aiService.js';
+import { QUESTION_MAX_LENGTH, QUESTION_MIN_LENGTH, answerQuestion } from './server/askService.js';
 
 export { insightCache };
 
@@ -125,13 +126,40 @@ app.post(
         return;
       }
 
-      const advisory = await getEmergencyAdvisoryText(cleanZone(zone), resolveLanguage(language));
-      res.json({ advisory });
+      res.json(await getEmergencyAdvisoryText(cleanZone(zone), resolveLanguage(language)));
     } catch (err) {
       next(err);
     }
   },
 );
+
+app.post('/api/ask', aiRateLimiter, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { question, persona, zone, language } = (req.body ?? {}) as Record<string, unknown>;
+    const text = sanitizeText(question, 1000);
+
+    if (text.length < QUESTION_MIN_LENGTH || text.length > QUESTION_MAX_LENGTH) {
+      res.status(400).json({
+        error: `Question must be between ${QUESTION_MIN_LENGTH} and ${QUESTION_MAX_LENGTH} characters`,
+      });
+      return;
+    }
+    if (!validatePersona(persona)) {
+      res.status(400).json({ error: 'Invalid persona profile payload' });
+      return;
+    }
+    if (!validateZone(zone)) {
+      res.status(400).json({ error: 'Invalid zone telemetry payload' });
+      return;
+    }
+
+    res.json(
+      await answerQuestion(text, cleanPersona(persona), cleanZone(zone), resolveLanguage(language)),
+    );
+  } catch (err) {
+    next(err);
+  }
+});
 
 // Unknown API routes get a JSON 404 instead of the SPA shell.
 app.use('/api', (_req: Request, res: Response) => {

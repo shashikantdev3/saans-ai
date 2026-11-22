@@ -94,3 +94,55 @@ body {
 .saans-shell [class*='border-emerald-5'] {
   border-color: #78b6ae;
 }
+
+/* Tinted status surfaces in the light palette: keep dark-theme utility classes readable. */
+.saans-shell [class*='bg-red-950'],
+.saans-shell [class*='bg-red-900'],
+.saans-shell [class*='bg-red-800'] {
+  background-color: #fdecec;
+}
+.saans-shell [class*='bg-amber-950'] {
+  background-color: #fff4dd;
+}
+.saans-shell [class*='bg-sky-950'] {
+  background-color: #e3f1f8;
+}
+.saans-shell [class*='bg-emerald-900'],
+.saans-shell [class*='bg-emerald-800'] {
+  background-color: #dff0ed;
+}
+.saans-shell [class*='from-emerald-950'] {
+  background-image: linear-gradient(90deg, #dff0ed, #ffffff);
+}
+.saans-shell .text-red-100,
+.saans-shell .text-red-200,
+.saans-shell .text-red-300,
+.saans-shell .text-red-400 {
+  color: #9f1c1c;
+}
+.saans-shell .text-amber-100,
+.saans-shell .text-amber-200,
+.saans-shell .text-amber-300,
+.saans-shell .text-amber-400 {
+  color: #7a4300;
+}
+.saans-shell .text-sky-300 {
+  color: #155e75;
+}
+.saans-shell .text-emerald-200,
+.saans-shell .text-emerald-300 {
+  color: #12594f;
+}
+.saans-shell .text-orange-400 {
+  color: #9a3a06;
+}
+.saans-shell .text-purple-400 {
+  color: #6b21a8;
+}
+.saans-shell [class*='border-red-5'] {
+  border-color: #efb1ac;
+}
+.saans-shell [class*='border-amber-5'],
+.saans-shell [class*='border-amber-8'] {
+  border-color: #e8c983;
+}

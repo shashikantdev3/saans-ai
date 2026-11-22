@@ -179,6 +179,19 @@ describe('Live HTTP Backend API Endpoints', () => {
     expect(data.advisory).toContain('EMERGENCY SMOG ADVISORY');
   });
 
+  it('POST /api/emergency-advisory reports where the advisory came from', async () => {
+    const res = await fetch(`${baseUrl}/api/emergency-advisory`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ zone: DEFAULT_ZONES[1], language: 'hi' }),
+    });
+
+    expect(res.status).toBe(200);
+    const data = await res.json();
+    expect(data.source).toBe('rules');
+    expect(data.advisory).toContain(DEFAULT_ZONES[1].zoneName);
+  });
+
   it('POST /api/emergency-advisory returns 400 when zone is omitted', async () => {
     const res = await fetch(`${baseUrl}/api/emergency-advisory`, {
       method: 'POST',
@@ -195,5 +208,95 @@ describe('Live HTTP Backend API Endpoints', () => {
     const res = await fetch(`${baseUrl}/some-spa-deep-route`);
     // Status 200 (serves SPA index.html or fallback text)
     expect(res.status).toBe(200);
+  });
+});
+
+describe('Ask Saans API', () => {
+  const ask = (body: unknown) =>
+    fetch(`${baseUrl}/api/ask`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+  it('answers a valid question grounded in the selected zone readings', async () => {
+    const res = await ask({
+      question: 'Can my child play outside after school today?',
+      persona: DEFAULT_PERSONAS[0],
+      zone: DEFAULT_ZONES[0],
+      language: 'en',
+    });
+
+    expect(res.status).toBe(200);
+    const data = await res.json();
+    expect(data.source).toBe('rules');
+    expect(data.answer).toContain(String(DEFAULT_ZONES[0].aqi));
+  });
+
+  it('rejects an empty question with 400', async () => {
+    const res = await ask({
+      question: '   ',
+      persona: DEFAULT_PERSONAS[0],
+      zone: DEFAULT_ZONES[0],
+      language: 'en',
+    });
+
+    expect(res.status).toBe(400);
+    const data = await res.json();
+    expect(data.error).toContain('between 3 and 300 characters');
+  });
+
+  it('rejects a question longer than 300 characters with 400', async () => {
+    const res = await ask({
+      question: 'smog '.repeat(70),
+      persona: DEFAULT_PERSONAS[0],
+      zone: DEFAULT_ZONES[0],
+      language: 'en',
+    });
+
+    expect(res.status).toBe(400);
+  });
+
+  it('rejects a malformed zone even when the question is valid', async () => {
+    const res = await ask({
+      question: 'Is it safe to go for a run?',
+      persona: DEFAULT_PERSONAS[0],
+      zone: { zoneId: 'X' },
+      language: 'en',
+    });
+
+    expect(res.status).toBe(400);
+    const data = await res.json();
+    expect(data.error).toContain('Invalid zone telemetry payload');
+  });
+
+  it('answers emergency wording with fixed safety guidance and no model call', async () => {
+    const res = await ask({
+      question: 'My father cannot breathe properly and has chest pain',
+      persona: DEFAULT_PERSONAS[2],
+      zone: DEFAULT_ZONES[0],
+      language: 'en',
+    });
+
+    expect(res.status).toBe(200);
+    const data = await res.json();
+    expect(data.source).toBe('safety');
+    expect(data.answer).toContain('112');
+    expect(data.promptPreview).toBeUndefined();
+  });
+
+  it('returns 404 JSON for unknown API routes', async () => {
+    const res = await fetch(`${baseUrl}/api/does-not-exist`);
+    expect(res.status).toBe(404);
+    expect((await res.json()).error).toBe('Not found');
+  });
+
+  it('returns 400 for malformed JSON instead of a server error', async () => {
+    const res = await fetch(`${baseUrl}/api/ask`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: '{not json',
+    });
+    expect(res.status).toBe(400);
   });
 });

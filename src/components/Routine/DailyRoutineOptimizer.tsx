@@ -8,6 +8,7 @@ import { memo, useState, useCallback } from 'react';
 import { useAppContext } from '@/context/AppContext';
 import { apiService } from '@/services/apiService';
 import type { PersonaProfile } from '@/types';
+import { AiSourceBadge } from '@/components/shared/AiSourceBadge';
 import { RoutineTimeline } from './RoutineTimeline';
 
 export const DailyRoutineOptimizer = memo(function DailyRoutineOptimizer() {
@@ -148,6 +149,13 @@ export const DailyRoutineOptimizer = memo(function DailyRoutineOptimizer() {
       {/* Routine Plan Results */}
       {routinePlan && (
         <div className="flex flex-col gap-6 fade-in">
+          <div className="flex flex-wrap items-center gap-2 text-sm text-[#294653]">
+            <span>
+              Plan for <strong className="text-[#18313d]">{routinePlan.persona}</strong>
+            </span>
+            <AiSourceBadge source={routinePlan.aiSource} model={routinePlan.model} />
+          </div>
+
           {/* Key Metric Highlights & Optimal Window */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-emerald-950/40 border border-emerald-500/50 rounded-2xl p-5 flex flex-col justify-between">

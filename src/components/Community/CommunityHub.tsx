@@ -9,12 +9,14 @@ import { useAppContext } from '@/context/AppContext';
 import { calculateCommunityOffset } from '@/lib/aqiCompute';
 import { apiService } from '@/services/apiService';
 import { TRANSLATIONS } from '@/lib/constants';
+import { AiSourceBadge } from '@/components/shared/AiSourceBadge';
+import type { AdvisoryResponse } from '@/types';
 import { PledgeCard } from './PledgeCard';
 
 export const CommunityHub = memo(function CommunityHub() {
   const { pledges, togglePledge, alerts, dismissAlert, selectedZone, language } = useAppContext();
 
-  const [aiAdvisory, setAiAdvisory] = useState<string | null>(null);
+  const [aiAdvisory, setAiAdvisory] = useState<AdvisoryResponse | null>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
   const t = TRANSLATIONS[language] || TRANSLATIONS.en;
@@ -30,12 +32,12 @@ export const CommunityHub = memo(function CommunityHub() {
   const handleGenerateAdvisory = useCallback(async () => {
     setIsGenerating(true);
     try {
-      const advisory = await apiService.generateEmergencyAdvisory(selectedZone, language);
-      setAiAdvisory(advisory);
+      setAiAdvisory(await apiService.generateEmergencyAdvisory(selectedZone, language));
     } catch {
-      setAiAdvisory(
-        `URGENT NOTICE for ${selectedZone.zoneName}: AQI is ${selectedZone.aqi}. Please activate indoor filtration, seal doors, and assist vulnerable neighbors.`,
-      );
+      setAiAdvisory({
+        source: 'rules',
+        advisory: `URGENT NOTICE for ${selectedZone.zoneName}: AQI is ${selectedZone.aqi}. Please run indoor air filtration, seal doors, and check on vulnerable neighbours.`,
+      });
     } finally {
       setIsGenerating(false);
     }
@@ -108,11 +110,12 @@ export const CommunityHub = memo(function CommunityHub() {
               language === 'ar' ? 'font-arabic text-right' : ''
             }`}
           >
-            <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 mb-2">
+            <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-emerald-400 mb-2">
               <span aria-hidden="true">📡</span>
               <span>Official Air Resilience Broadcast ({language.toUpperCase()}):</span>
+              <AiSourceBadge source={aiAdvisory.source} model={aiAdvisory.model} />
             </div>
-            <p>{aiAdvisory}</p>
+            <p>{aiAdvisory.advisory}</p>
           </div>
         )}
 

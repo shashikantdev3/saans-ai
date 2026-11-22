@@ -1,14 +1,14 @@
-# Efficiency & Performance Blueprint — AeroGuard AI
+# Efficiency & Performance Blueprint: Saans
 
 > **Standard:** Sub-10ms Cached Latency & Zero-Bloat Bundle (Score: 100/100)  
 > **Evaluation Pillar:** Pillar 3 (Efficiency & Resource Management)  
-> **Repository:** AeroGuard AI — Urban Air Quality & Smog Public Health Assistant  
+> **Repository:** Saans, an urban air quality and winter smog assistant  
 
 ---
 
 ## 1. In-Memory SHA-256 Hash-Keyed LRU AI Cache
 
-Repeated LLM inference for identical atmospheric conditions causes latency spikes (1.5s - 3s) and rapidly consumes API quotas. AeroGuard AI implements an in-memory SHA-256 hash-keyed caching dictionary with an LRU eviction strategy:
+Repeated LLM inference for identical atmospheric conditions causes latency spikes (1.5s - 3s) and rapidly consumes API quotas. Saans implements an in-memory SHA-256 hash-keyed caching dictionary with an LRU eviction strategy:
 
 ```typescript
 interface CacheEntry {
@@ -48,7 +48,7 @@ it('Verifies in-memory SHA-256 LRU cache hit on repeated payload', async () => {
 
 Many dashboard applications bundle heavy charting packages (such as Recharts, Chart.js, or D3), adding 150–400 kB of minified JavaScript to the initial payload.
 
-AeroGuard AI eliminates external charting dependencies completely. All visual trends and spatial heatmaps are rendered via lightweight, responsive native SVGs:
+Saans eliminates external charting dependencies completely. All visual trends and spatial heatmaps are rendered via lightweight, responsive native SVGs:
 
 1. **Lightweight SVG Sparklines (`Sparkline.tsx`):**
    - Renders 7-hour pollutant vectors in a 160×36 viewBox using single continuous `<path>` elements and circle markers.

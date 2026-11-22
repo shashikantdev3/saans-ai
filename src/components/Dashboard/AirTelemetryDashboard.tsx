@@ -8,6 +8,7 @@ import { memo } from 'react';
 import { useAirAnalytics } from '@/hooks/useAirAnalytics';
 import { Sparkline } from '@/components/shared/Sparkline';
 import { ZoneCard } from '@/components/shared/ZoneCard';
+import { AskSaans } from '@/components/Ask/AskSaans';
 import { SmogHeatmap } from './SmogHeatmap';
 
 export const AirTelemetryDashboard = memo(function AirTelemetryDashboard() {
@@ -130,6 +131,9 @@ export const AirTelemetryDashboard = memo(function AirTelemetryDashboard() {
           </span>
         </div>
       </div>
+
+      {/* GenAI question box grounded in the selected sector */}
+      <AskSaans />
 
       {/* Grid: SVG Heatmap (Left) & Pollutant Sparklines (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

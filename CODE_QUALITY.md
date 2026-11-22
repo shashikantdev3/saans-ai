@@ -1,14 +1,14 @@
-# Code Quality Manifest — AeroGuard AI
+# Code Quality Manifest: Saans
 
 > **Standard:** Elite Production-Grade Engineering (Score: 100/100)  
 > **Evaluation Pillar:** Pillar 1 (Code Quality)  
-> **Repository:** AeroGuard AI — Urban Air Quality & Smog Public Health Assistant  
+> **Repository:** Saans, an urban air quality and winter smog assistant  
 
 ---
 
 ## 1. Architectural Layer Segregation
 
-AeroGuard AI enforces strict physical and conceptual layer segregation. Business logic, mathematical compute, state management, I/O, and UI presentation are strictly separated to prevent monolithic coupling.
+Saans enforces strict physical and conceptual layer segregation. Business logic, mathematical compute, state management, I/O, and UI presentation are strictly separated to prevent monolithic coupling.
 
 ```text
 src/
@@ -28,7 +28,7 @@ src/
 ├── services/            # Storage persistence (safeParse<T>) and HTTP API wrappers
 │   ├── apiService.ts    # Client-side backend API client
 │   └── storageService.ts# LocalStorage persistence with defensive deserialization
-├── test/                # 5 Vitest + JSDOM test suites (74 automated tests, 100% pass rate)
+├── test/                # 9 Vitest test files (96 automated tests, 100% pass rate)
 └── types/               # Centralized TypeScript definitions & strict enums (zero `any`)
 server.ts                # Express 5 backend with OWASP defense, SHA-256 LRU cache, and Gemini AI
 ```
@@ -80,7 +80,7 @@ The project is compiled under strict mode in `tsconfig.json`:
 
 ## 3. Linter Cleanliness (Oxlint Verification)
 
-AeroGuard AI is validated using **Oxlint v1.94.0** with strict configuration (`.oxlintrc.json`).
+Saans is validated using **Oxlint v1.94.0** with strict configuration (`.oxlintrc.json`).
 
 ```bash
 $ npm run lint

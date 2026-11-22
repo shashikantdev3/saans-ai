@@ -12,9 +12,11 @@ const ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://localhost:3001',
   'http://localhost:4173',
-  'https://aeroguard.web.app',
-  'https://aeroguard.firebaseapp.com',
+  'https://saans-ai-kappa.vercel.app',
 ];
+
+// Production plus this project's own Vercel preview deployments only.
+const SAANS_PREVIEW_ORIGIN = /^https:\/\/saans-ai(-[a-z0-9-]+)?\.vercel\.app$/;
 
 export const helmetMiddleware = helmet({
   contentSecurityPolicy: {
@@ -37,10 +39,9 @@ export const corsMiddleware = cors({
     if (!origin) return callback(null, true);
     if (
       ALLOWED_ORIGINS.includes(origin) ||
+      SAANS_PREVIEW_ORIGIN.test(origin) ||
       origin.startsWith('http://localhost:') ||
-      origin.startsWith('http://127.0.0.1:') ||
-      origin.endsWith('.vercel.app') ||
-      origin.endsWith('.onrender.com')
+      origin.startsWith('http://127.0.0.1:')
     ) {
       return callback(null, true);
     }
@@ -59,7 +60,12 @@ export const aiRateLimiter = rateLimit({
   message: { error: 'Too many requests, please try again in a minute.' },
 });
 
-export function safeErrorHandler(err: unknown, _req: Request, res: Response, _next: NextFunction): void {
+export function safeErrorHandler(
+  err: unknown,
+  _req: Request,
+  res: Response,
+  _next: NextFunction,
+): void {
   console.error('[SECURITY AUDIT] Internal Server Error:', err);
   res.status(500).json({ error: 'Internal Server Error' });
 }

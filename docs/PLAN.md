@@ -1,7 +1,7 @@
-# AeroGuard AI - Implementation Plan & Engineering Specifications
+# Saans: Implementation Plan & Engineering Specifications
 
 ## 1. Executive Summary
-AeroGuard AI is an intelligent urban air quality and smog public health assistant designed for high-density metropolitan areas vulnerable to winter temperature inversions, particulate matter accumulation, and traffic emissions.
+Saans is an intelligent urban air quality and smog public health assistant designed for high-density metropolitan areas vulnerable to winter temperature inversions, particulate matter accumulation, and traffic emissions.
 
 ## 2. Core Feature Pillars
 1. **Hyperlocal Air Quality & Inversion Telemetry**:
@@ -31,5 +31,5 @@ AeroGuard AI is an intelligent urban air quality and smog public health assistan
 ## 3. Verification & CI Strategy
 - **Linter**: Oxlint static analysis executed with `--deny-warnings`.
 - **Type Checking**: TypeScript compiler `tsc -b` running in strict mode.
-- **Unit & Integration Tests**: 78 tests covering compute formulas, routing graphs, DOM landmarks, rendering behavior, and HTTP endpoints.
+- **Unit & Integration Tests**: 96 tests covering compute formulas, routing graphs, DOM landmarks, rendering behavior, and HTTP endpoints.
 - **GitHub Actions Pipeline**: Continuous integration on all push and pull request events.

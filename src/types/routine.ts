@@ -3,6 +3,8 @@
 // Persona profiles, hourly schedules, and GenAI routine plans
 // ============================================================
 
+import type { AiSource } from './ask';
+
 export interface PersonaProfile {
   id: string;
   name: string;
@@ -44,4 +46,7 @@ export interface DailyRoutinePlan {
   totalExposureScore: number;
   carbonOffsetKg: number;
   generalAdvice: string[];
+  /** Set by the server: whether Gemini wrote the text or the rules fallback did. */
+  aiSource?: AiSource;
+  model?: string;
 }
